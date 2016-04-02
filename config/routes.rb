@@ -1,6 +1,29 @@
+class Subdomain
+  def self.matches?(request)
+    case request.subdomain
+      when 'www', '', nil
+        false
+      else
+        true
+    end
+  end
+end
+
 Rails.application.routes.draw do
-  devise_for :users, :controllers => { registrations: 'registrations' }
-  root 'home#index'
+
+  devise_for :users, :controllers => {registrations: 'registrations', sessions: 'sessions'}
+
+  constraints(Subdomain) do
+    match '/' => 'home#show', via: :get
+  end
+  resources :home, only: [:index]
+  root 'welcome#index'
+
+
+  # match '/', to: 'home#index', constraints: { subdomain: 'www' }, via: [:get, :post]
+  # match '/', to: 'home#show', constraints: { subdomain: /.+/ }, via: [:get, :post]
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

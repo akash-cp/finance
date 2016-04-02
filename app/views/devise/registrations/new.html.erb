@@ -15,8 +15,7 @@
       </div>
 
       <div class="field">
-        <%= f.label :subdomain %><br />
-        <%= f.text_field :subdomain %>
+        <%= f.hidden_field :subdomain, value: request.subdomain %>
       </div>
 
       <div class="field">

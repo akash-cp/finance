@@ -1,0 +1,6 @@
+div.container
+ h1 Enter Sub domain name
+ = form_tag('/', method: 'get') do
+  = label_tag(:q, 'Name:')
+  = text_field_tag(:q)
+  = submit_tag('Submit')
