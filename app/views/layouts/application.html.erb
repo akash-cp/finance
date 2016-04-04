@@ -10,11 +10,12 @@
 <nav class="navbar navbar-default">
   <div class="col-xs-9 container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="<%=root_url(subdomain: nil)%>">Finance</a>
+      <a class="navbar-brand" href="#">Finance</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">Hello</a></li>
-      <li><a href="#">World</a></li>
+      <li><a href="<%= home_index_path %>">Home</a></li>
+      <li><a href="#">Income</a></li>
+      <li><a href="#">Expense</a></li>
 
 
     </ul>
@@ -23,13 +24,11 @@
   <div class="col-xs-3">
     <ul class="nav navbar-nav">
       <% if current_user %>
-          <li><a href="#">Hi, <%= current_user.email %></a></li>
+          <li><a href="<%= edit_user_registration_path %>">Hi, <%= current_user.email %></a></li>
           <li><a href="<%= destroy_user_session_path %>" data-method="delete">Sign Out</a></li>
       <% else %>
 
           <li><a href="<%= new_user_session_path %>">Sign In</a></li>
-          <li><a href="<%= new_user_registration_path %>">Sign Up</a></li>
-
       <% end %>
     </ul>
 
@@ -37,8 +36,9 @@
 </nav>
 <p class="notice"><%= notice %></p>
 <p class="alert"><%= alert %></p>
-
-<%= yield %>
+<div class="container">
+  <%= yield %>
+</div>
 
 </body>
 </html>

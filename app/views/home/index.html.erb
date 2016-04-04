@@ -1,0 +1,63 @@
+<div class="container">
+  <h1>Profile</h1>
+
+  <div class="row">
+
+    <div class="col-xs-9">
+      <legend>Personal</legend>
+      <table>
+        <tr>
+          <td><b>Name: </b></td>
+          <td><%= @user.name %></td>
+        </tr>
+        <tr>
+          <td><b>Email: </b></td>
+          <td><%= @user.email %></td>
+        </tr>
+      </table>
+      <br>
+      <legend>Company</legend>
+      <table>
+        <tr>
+          <td><b>Company Name: </b></td>
+          <td><%= @user.company.name %></td>
+        </tr>
+        <tr>
+          <td><b>Subdomain: </b></td>
+          <td><%= @user.company.subdomain %></td>
+        </tr>
+      </table>
+      <br>
+      <h3>Invitations</h3>
+
+
+      <table class="table col-xs-12">
+        <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Status</th>
+        </tr>
+        <% @invited_for_company.each do |invited| %>
+            <tr>
+              <td><%= invited.name %></td>
+              <td><%= invited.email %></td>
+              <td><%= invited.invitation_accepted_at.present? ? 'Accepted':invited.id == @user.id ? 'Owner':'Pending' %></td>
+            </tr>
+        <% end %>
+      </table>
+
+
+      <p align="right"><%= link_to 'New', new_user_invitation_path, class: 'btn btn-success' %></p>
+    </div>
+
+    <div class="col-xs-3">
+      <legend>Profile Picture</legend>
+      <%= image_tag @user.avatar.url(:thumb) %>
+
+    </div>
+
+  </div>
+
+</div>
+
+

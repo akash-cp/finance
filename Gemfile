@@ -48,4 +48,7 @@ end
 gem 'devise'
 gem 'slim'
 gem 'carrierwave'
-
+gem 'bootstrap-material-design', '~> 0.2.2'
+gem 'hirb'
+gem 'devise_invitable', '~> 1.5.2'
+gem 'mini_magick'

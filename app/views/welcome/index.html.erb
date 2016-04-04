@@ -1,0 +1,8 @@
+<div class="container">
+  <h1>Enter Sub domain name</h1>
+  <%= form_tag('/', method: 'get') do %>
+      <%= label_tag(:q, 'Name:') %>
+      <%= text_field_tag(:q) %> <br><br>
+      <%= submit_tag('Submit', class: 'btn btn-success') %>
+  <% end %>
+</div>
