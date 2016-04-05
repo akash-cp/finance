@@ -1,0 +1,33 @@
+<div class="col-md-6 col-md-offset-3">
+  <h1>New Income Categories</h1>
+  <%= form_for(@income_category) do |f| %>
+      <% if @income_category.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@income.errors.count, "error") %> prohibited this income from being saved:</h2>
+
+            <ul>
+              <% @income.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+
+      <div class="field">
+        <%= f.label :name %><br/>
+        <%= f.text_field :name, autofocus: true, class:"form-control" %>
+      </div>
+
+      <div class="field">
+        <%= f.hidden_field :company_id, value: current_user.company.id %>
+      </div>
+
+
+      <div class="actions">
+        <%= f.submit 'Submit', class: 'btn btn-success' %>
+      </div>
+  <% end %>
+
+
+
+</div>

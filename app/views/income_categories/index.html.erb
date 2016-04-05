@@ -1,0 +1,26 @@
+<h1>Income Categories</h1>
+<%= link_to 'New Income', new_income_category_path , class: 'btn btn-success' %>
+<br><br>
+<div class="row">
+  <table class="table">
+    <tr>
+      <th class="col-xs-3">Name</th>
+      <th class="col-xs-3">Created By</th>
+      <th class="col-xs-3">Updated By</th>
+      <th class="col-xs-2"></th>
+    </tr>
+    <% @income_categories.each do |income_category| %>
+        <tr>
+          <td><%= income_category.name %></td>
+          <td><%= income_category.creater.name %></td>
+          <td><%= income_category.updater.name %></td>
+          <td>
+            <%= link_to 'Edit', edit_income_category_path(id: income_category.id), class: 'btn btn-success' %>
+            <%= link_to 'Delete', income_category_path(id: income_category.id), class: 'btn btn-danger', method: :delete %>
+          </td>
+        </tr>
+    <% end %>
+
+  </table>
+
+</div>

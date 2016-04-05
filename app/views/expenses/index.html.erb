@@ -1,0 +1,29 @@
+<h1>Expenses</h1>
+<%= link_to 'New Expense', new_expense_path , class: 'btn btn-success' %>
+<br><br>
+<div class="row">
+  <table class="table">
+    <tr>
+      <th>Amount</th>
+      <th>Date</th>
+      <th>Created By</th>
+      <th>Updated By</th>
+      <th class="col-xs-2"></th>
+    </tr>
+    <% @expenses.each do |expense| %>
+        <tr>
+          <td><%= expense.amount%></td>
+          <td><%= expense.date%></td>
+          <td><%= expense.creater.name %></td>
+          <td><%= expense.updater.name %></td>
+          <td>
+            <%= link_to 'Edit', edit_expense_path(id: expense.id), class: 'btn btn-success' %>
+            <%= link_to 'Delete', expense_path(id: expense.id), class: 'btn btn-danger', method: :delete %>
+          </td>
+        </tr>
+
+    <% end %>
+
+  </table>
+
+</div>

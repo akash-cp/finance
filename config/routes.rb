@@ -19,6 +19,12 @@ Rails.application.routes.draw do
   resources :home, only: [:index] do
     get 'edit', on: :collection
   end
+  resources :incomes
+  resources :expenses
+  resources :income_categories
+  resources :expense_categories
+  resources :transactions
+
   root 'welcome#index'
 
 

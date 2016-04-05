@@ -9,8 +9,9 @@ class User < ActiveRecord::Base
 
   belongs_to :company
 
-  validates :company_name, presence: true, on: :create
+  validates :company_name, presence: true, on: :create, allow_blank: false
   validates :subdomain, presence: true, on: :create, allow_blank: false
+  validates :email, presence: true, uniqueness: {scope: :company_id}, on: :create, allow_blank: false
   validate :avatar_size_validation
 
   before_create :create_company, unless: :invited_to_sign_up?
@@ -39,6 +40,5 @@ class User < ActiveRecord::Base
   def avatar_size_validation
     errors[:avatar] << 'should be less than 2 MB' if avatar.size > 2.megabytes
   end
-
 
 end

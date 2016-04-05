@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160404074650) do
+ActiveRecord::Schema.define(version: 20160405062615) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -22,6 +22,66 @@ ActiveRecord::Schema.define(version: 20160404074650) do
   end
 
   add_index "companies", ["owner_id"], name: "index_companies_on_owner_id", using: :btree
+
+  create_table "expense_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "company_id", limit: 4
+    t.integer  "created_by", limit: 4
+    t.integer  "updated_by", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "expense_categories", ["company_id"], name: "index_expense_categories_on_company_id", using: :btree
+
+  create_table "expenses", force: :cascade do |t|
+    t.date     "date"
+    t.decimal  "amount",                          precision: 10, scale: 4
+    t.string   "description",         limit: 255
+    t.integer  "created_by",          limit: 4
+    t.integer  "updated_by",          limit: 4
+    t.integer  "expense_category_id", limit: 4
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+    t.string   "attachment",          limit: 255
+  end
+
+  add_index "expenses", ["expense_category_id"], name: "index_expenses_on_expense_category_id", using: :btree
+
+  create_table "income_categories", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.integer  "company_id", limit: 4
+    t.integer  "created_by", limit: 4
+    t.integer  "updated_by", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "income_categories", ["company_id"], name: "index_income_categories_on_company_id", using: :btree
+
+  create_table "incomes", force: :cascade do |t|
+    t.date     "date"
+    t.decimal  "amount",                         precision: 10, scale: 4
+    t.string   "description",        limit: 255
+    t.integer  "created_by",         limit: 4
+    t.integer  "updated_by",         limit: 4
+    t.integer  "income_category_id", limit: 4
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.string   "attachment",         limit: 255
+  end
+
+  add_index "incomes", ["income_category_id"], name: "index_incomes_on_income_category_id", using: :btree
+
+  create_table "transactions", force: :cascade do |t|
+    t.integer  "company_id",           limit: 4
+    t.integer  "transactionable_id",   limit: 4
+    t.string   "transactionable_type", limit: 255
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+  end
+
+  add_index "transactions", ["company_id"], name: "index_transactions_on_company_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name",                   limit: 255,              null: false
@@ -61,5 +121,10 @@ ActiveRecord::Schema.define(version: 20160404074650) do
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "expense_categories", "companies"
+  add_foreign_key "expenses", "expense_categories"
+  add_foreign_key "income_categories", "companies"
+  add_foreign_key "incomes", "income_categories"
+  add_foreign_key "transactions", "companies"
   add_foreign_key "users", "companies"
 end

@@ -4,7 +4,13 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def after_sign_in_path_for(resource)
-    home_index_url(:subdomain => resource.company.subdomain)
+    # if request.subdomain == current_user.company.subdomain
+    #   home_index_url(:subdomain => resource.company.subdomain)
+    # else
+    #   destroy_user_session_url(subdomain: request.subdomain)
+    #   root_url(subdomain: nil)
+    # end
+   home_index_url(:subdomain => resource.company.subdomain)
   end
 
   def after_sign_out_path_for(resource)
