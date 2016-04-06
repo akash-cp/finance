@@ -1,1 +1,39 @@
 <h1>Transactions</h1>
+<hr class="hr">
+<%= form_tag(transactions_path, method: 'get') do %>
+    <%= label_tag :start_date, 'Start Date:' %>
+    <%= date_field :start_date, '', value: params[:start_date],  class: 'btn btn-default' %>&nbsp;
+
+    <%= label_tag :end_date, 'End Date:' %>
+    <%= date_field :end_date, '', value: params[:end_date], class: 'btn btn-default' %>&nbsp;
+
+    <%= label_tag :user, 'User: ' %>
+    <%= collection_select('', :user_id, @users , :id, :name, { selected: params[:user_id], include_blank: 'All'},{ class: 'btn btn-default '})%>&nbsp;
+
+    <%= label_tag :type, 'Show: ' %>
+    <%= select_tag :type, options_for_select(Transaction::TYPE),{ class: 'btn btn-default '}%>&nbsp;
+
+    <%= submit_tag('Go', class: 'btn btn-success') %>
+<% end %>
+<hr class="hr">
+
+<table class="table">
+  <tr>
+    <th>Amount</th>
+    <th>Date</th>
+    <th>Type</th>
+    <th class="col-xs-2">Transaction By</th>
+
+  </tr>
+  <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.transactionable.amount%></td>
+        <td><%= transaction.transactionable.date.strftime('%d %b, %Y')%></td>
+        <td><%= transaction.transactionable_type %></td>
+        <td><%= transaction.transactionable.creater.name %></td>
+      </tr>
+  <% end %>
+</table>
+<%= will_paginate @transactions, class: 'pagination' %>
+<%= params %>
+

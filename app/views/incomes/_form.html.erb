@@ -25,7 +25,7 @@
 
       <div class="field ">
         <%= f.label :category %><br />
-        <%= collection_select(:income, :income_category_id, IncomeCategory.where(company_id: current_user.company.id), :id, :name,
+        <%= collection_select(:income, :income_category_id, IncomeCategory.where(company_id: current_user.company_id), :id, :name,
                               {prompt: 'Select Category'},{class: "form-control form-group"}) %>
       </div>
 
@@ -33,10 +33,22 @@
         <%= f.hidden_field :company_id, value: current_user.company.id %>
       </div>
 
+      <div class="field">
+        <%= f.hidden_field :created_by, value: current_user.id %>
+      </div>
+
+      <div class="field">
+        <%= f.hidden_field :updated_by, value: current_user.id %>
+      </div>
 
       <div class="field">
         <%= f.label :date %><br />
-        <%= f.date_field :date,class: "form-control"   %>
+        <%= f.date_field :date, class: "form-control" %>
+      </div>
+      <br>
+
+      <div class="field">
+        <%= f.file_field :attachment %>
       </div>
       <br>
 

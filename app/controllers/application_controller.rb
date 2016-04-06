@@ -17,4 +17,8 @@ class ApplicationController < ActionController::Base
     root_url(subdomain: nil)
   end
 
+  def company
+    current_user.company
+  end
+
 end

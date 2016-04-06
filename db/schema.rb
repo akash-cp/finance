@@ -41,11 +41,13 @@ ActiveRecord::Schema.define(version: 20160405062615) do
     t.integer  "created_by",          limit: 4
     t.integer  "updated_by",          limit: 4
     t.integer  "expense_category_id", limit: 4
+    t.integer  "company_id",          limit: 4
     t.datetime "created_at",                                               null: false
     t.datetime "updated_at",                                               null: false
     t.string   "attachment",          limit: 255
   end
 
+  add_index "expenses", ["company_id"], name: "index_expenses_on_company_id", using: :btree
   add_index "expenses", ["expense_category_id"], name: "index_expenses_on_expense_category_id", using: :btree
 
   create_table "income_categories", force: :cascade do |t|
@@ -66,17 +68,21 @@ ActiveRecord::Schema.define(version: 20160405062615) do
     t.integer  "created_by",         limit: 4
     t.integer  "updated_by",         limit: 4
     t.integer  "income_category_id", limit: 4
+    t.integer  "company_id",         limit: 4
     t.datetime "created_at",                                              null: false
     t.datetime "updated_at",                                              null: false
     t.string   "attachment",         limit: 255
   end
 
+  add_index "incomes", ["company_id"], name: "index_incomes_on_company_id", using: :btree
   add_index "incomes", ["income_category_id"], name: "index_incomes_on_income_category_id", using: :btree
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "company_id",           limit: 4
     t.integer  "transactionable_id",   limit: 4
     t.string   "transactionable_type", limit: 255
+    t.date     "date"
+    t.integer  "created_by",           limit: 4
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
   end
@@ -122,8 +128,10 @@ ActiveRecord::Schema.define(version: 20160405062615) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   add_foreign_key "expense_categories", "companies"
+  add_foreign_key "expenses", "companies"
   add_foreign_key "expenses", "expense_categories"
   add_foreign_key "income_categories", "companies"
+  add_foreign_key "incomes", "companies"
   add_foreign_key "incomes", "income_categories"
   add_foreign_key "transactions", "companies"
   add_foreign_key "users", "companies"

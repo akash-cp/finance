@@ -1,29 +1,52 @@
 <h1>Incomes</h1>
+<hr class="hr">
+
+  <%= form_tag(incomes_path, method: 'get') do %>
+      <%= label_tag :start_date, 'Start Date:' %>
+      <%= date_field :start_date, '', value: params[:start_date],  class: 'btn btn-default' %>&nbsp;
+
+      <%= label_tag :end_date, 'End Date:' %>
+      <%= date_field :end_date, '', value: params[:end_date], class: 'btn btn-default' %>&nbsp;
+
+      <%= label_tag :user, 'User: ' %>
+      <%= collection_select('', :user_id, @users , :id, :name, {selected: params[:user_id], include_blank: 'All'},{ class: 'btn btn-default '})%>&nbsp;
+
+      <%= label_tag :category, 'Category: ' %>
+      <%= collection_select('', :category_id, @income_categories, :id, :name, {prompt: 'Select Category', selected: params[:category_id], include_blank: 'All'},{ class: 'btn btn-default '})%>&nbsp;
+
+      <%= submit_tag('Go', class: 'btn btn-success') %>
+  <% end %>
+<hr class="hr">
+
 <%= link_to 'New Income', new_income_path , class: 'btn btn-success' %>
 <br><br>
-<div class="row">
-  <table class="table">
-    <tr>
-      <th>Amount</th>
-      <th>Date</th>
-      <th>Created By</th>
-      <th>Updated By</th>
-      <th class="col-xs-2"></th>
-    </tr>
-    <% @incomes.each do |income| %>
-        <tr>
-          <td><%= income.amount%></td>
-          <td><%= income.date%></td>
-          <td><%= income.creater.name %></td>
-          <td><%= income.updater.name %></td>
-          <td>
-            <%= link_to 'Edit', edit_income_path(id: income.id), class: 'btn btn-success' %>
-            <%= link_to 'Delete', income_path(id: income.id), class: 'btn btn-danger', method:  :delete %>
-          </td>
-        </tr>
 
-    <% end %>
+<table class="table">
+  <tr>
+    <th class="col-xs-1">Amount</th>
+    <th class="col-xs-1">Date</th>
+    <th class="col-xs-2">Category</th>
+    <th class="col-xs-1">Created By</th>
+    <th class="col-xs-1">Updated By</th>
+    <th class="col-xs-1">Attachment</th>
+    <th class="col-xs-1"></th>
+  </tr>
+  <% @incomes.each do |income| %>
+      <tr>
+        <td><%= income.amount%></td>
+        <td><%= income.date.strftime('%d %b, %Y')%></td>
+        <td><%= income.income_category.name%></td>
+        <td><%= income.creater.name %></td>
+        <td><%= income.updater.name %></td>
+        <td><%= link_to_if !income.attachment.blank?, 'Download', income.attachment.url, target: '_blank' %></td>
+        <td>
+          <%= link_to 'Edit', edit_income_path(id: income.id), class: 'btn btn-success' %>
+          <%= link_to 'Delete', income_path(id: income.id), class: 'btn btn-danger', method:  :delete %>
+        </td>
+      </tr>
 
-  </table>
+  <% end %>
 
-</div>
+</table>
+
+

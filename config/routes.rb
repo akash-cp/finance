@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   resources :expenses
   resources :income_categories
   resources :expense_categories
-  resources :transactions
+  resources :transactions, only: [:index]
 
   root 'welcome#index'
 

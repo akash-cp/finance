@@ -7,6 +7,7 @@ class CreateIncomes < ActiveRecord::Migration
       t.integer :created_by
       t.integer :updated_by
       t.references :income_category, index: true, foreign_key: true
+      t.references :company, index: true, foreign_key: true
 
       t.timestamps null: false
     end

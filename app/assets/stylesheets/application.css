@@ -12,5 +12,6 @@
  *
  *= require bootstrap.min
  *= require_self
+ *= require tags
  * require jquery-ui.min
  */

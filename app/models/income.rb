@@ -5,11 +5,15 @@ class Income < ActiveRecord::Base
   has_one :feed, as: :transactionable, class_name: 'Transaction'
   mount_uploader :attachment, AttachmentUploader
 
-  before_save :create_transaction
+  before_create :create_transaction
+
+  scope :range, ->(start_date, end_date) { where(date: start_date..end_date) }
+  scope :for_user, ->(user) { where(created_by: user) }
+  scope :for_category, ->(category) { where(income_category_id: category) }
 
   private
   def create_transaction
-    self.build_feed
+    self.build_feed(company_id: self.company_id, created_by: self.created_by, date: self.date)
   end
 
 end
