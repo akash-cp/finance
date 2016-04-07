@@ -1,5 +1,5 @@
 <h1>Expense Categories</h1>
-<%= link_to 'New Expense', new_expense_category_path , class: 'btn btn-success' %>
+<%= link_to 'New Expense', new_expense_category_path , class: 'btn btn-sm btn-success' %>
 <br><br>
 <div class="row">
   <table class="table">
@@ -15,8 +15,8 @@
           <td><%= expense.creater.name %></td>
           <td><%= expense.updater.name %></td>
           <td>
-            <%= link_to 'Edit', edit_expense_category_path(id: expense.id), class: 'btn btn-success' %>
-            <%= link_to 'Delete', expense_category_path(id: expense.id), class: 'btn btn-danger', method: :delete %>
+            <%= link_to 'Edit', edit_expense_category_path(id: expense.id), class: 'btn btn-sm btn-primary' %>
+            <%= link_to 'Delete', expense_category_path(id: expense.id), class: 'btn btn-sm btn-danger', method: :delete %>
           </td>
         </tr>
     <% end %>

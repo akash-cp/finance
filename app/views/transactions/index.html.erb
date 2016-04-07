@@ -2,18 +2,22 @@
 <hr class="hr">
 <%= form_tag(transactions_path, method: 'get') do %>
     <%= label_tag :start_date, 'Start Date:' %>
-    <%= date_field :start_date, '', value: params[:start_date],  class: 'btn btn-default' %>&nbsp;
+    <%= date_field :start_date, '', value: params[:start_date],  class: 'btn btn-sm btn-default' %>&nbsp;
 
     <%= label_tag :end_date, 'End Date:' %>
-    <%= date_field :end_date, '', value: params[:end_date], class: 'btn btn-default' %>&nbsp;
+    <%= date_field :end_date, '', value: params[:end_date], class: 'btn btn-sm btn-default' %>&nbsp;
 
     <%= label_tag :user, 'User: ' %>
-    <%= collection_select('', :user_id, @users , :id, :name, { selected: params[:user_id], include_blank: 'All'},{ class: 'btn btn-default '})%>&nbsp;
+    <%= collection_select('', :user_id, @users , :id, :name, { selected: params[:user_id], include_blank: 'All'}, class: 'btn btn-sm btn-default' )%>&nbsp;
 
     <%= label_tag :type, 'Show: ' %>
-    <%= select_tag :type, options_for_select(Transaction::TYPE),{ class: 'btn btn-default '}%>&nbsp;
+    <%= select_tag :type, options_for_select(Transaction::TYPE, params[:type]), class: 'btn btn-sm btn-default '%>&nbsp;
 
-    <%= submit_tag('Go', class: 'btn btn-success') %>
+    <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
+    <span class="export">
+     <%= select_tag :export_type, options_for_select(Transaction::EXPORT_TYPE, params[:export_type]), class: 'btn btn-sm btn-default '%>&nbsp;
+      <%= submit_tag('Export', class: 'btn btn-sm btn-primary') %>
+    </span>
 <% end %>
 <hr class="hr">
 
@@ -27,13 +31,11 @@
   </tr>
   <% @transactions.each do |transaction| %>
       <tr>
-        <td><%= transaction.transactionable.amount%></td>
-        <td><%= transaction.transactionable.date.strftime('%d %b, %Y')%></td>
+        <td><%= transaction.transactionable.amount %></td>
+        <td><%= transaction.transactionable.date.strftime('%d %b, %Y') %></td>
         <td><%= transaction.transactionable_type %></td>
         <td><%= transaction.transactionable.creater.name %></td>
       </tr>
   <% end %>
 </table>
 <%= will_paginate @transactions, class: 'pagination' %>
-<%= params %>
-

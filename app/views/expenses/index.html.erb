@@ -2,21 +2,25 @@
 <hr class="hr">
 <%= form_tag(expenses_path, method: 'get') do %>
     <%= label_tag :start_date, 'Start Date:' %>
-    <%= date_field :start_date, '', value: params[:start_date], class: 'btn btn-default' %>&nbsp;
+    <%= date_field :start_date, '', value: params[:start_date], class: 'btn btn-sm btn-default' %>&nbsp;
 
     <%= label_tag :end_date, 'End Date:' %>
-    <%= date_field :end_date, '', value: params[:end_date], class: 'btn btn-default' %>&nbsp;
+    <%= date_field :end_date, '', value: params[:end_date], class: 'btn btn-sm btn-default' %>&nbsp;
 
     <%= label_tag :user, 'User: ' %>
-    <%= collection_select('', :user_id, @users, :id, :name, { selected: params[:user_id], include_blank: 'All'}, { class: 'btn btn-default '})%>&nbsp;
+    <%= collection_select('', :user_id, @users, :id, :name, { selected: params[:user_id], include_blank: 'All'}, { class: 'btn btn-sm btn-default '})%>&nbsp;
 
     <%= label_tag :user, 'Category: ' %>
-    <%= collection_select('', :category_id, @expense_categories, :id, :name, {selected: params[:category_id], include_blank: 'All'}, { class: 'btn btn-default '})%>&nbsp;
+    <%= collection_select('', :category_id, @expense_categories, :id, :name, {selected: params[:category_id], include_blank: 'All'}, { class: 'btn btn-sm btn-default '})%>&nbsp;
 
-    <%= submit_tag('Go', class: 'btn btn-success') %>
+    <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
+    <span class="export">
+     <%= select_tag :export_type, options_for_select(Expense::EXPORT_TYPE, params[:export_type]), class: 'btn btn-sm btn-default '%>&nbsp;
+      <%= submit_tag('Export', class: 'btn btn-sm btn-primary') %>
+    </span>
 <% end %>
 <hr class="hr">
-<%= link_to 'New Expense', new_expense_path , class: 'btn btn-success' %>
+<%= link_to 'New Expense', new_expense_path , class: 'btn btn-sm btn-success' %>
 <br><br>
 
 <table class="table">
@@ -38,8 +42,8 @@
         <td><%= expense.updater.name %></td>
         <td><%=  %></td>
         <td>
-          <%= link_to 'Edit', edit_expense_path(id: expense.id), class: 'btn btn-success' %>
-          <%= link_to 'Delete', expense_path(id: expense.id), class: 'btn btn-danger', method: :delete %>
+          <%= link_to 'Edit', edit_expense_path(id: expense.id), class: 'btn btn-sm btn-primary' %>
+          <%= link_to 'Delete', expense_path(id: expense.id), class: 'btn btn-sm btn-danger', method: :delete %>
         </td>
       </tr>
 

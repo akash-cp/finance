@@ -1,24 +1,32 @@
 <h1>Incomes</h1>
 <hr class="hr">
 
-  <%= form_tag(incomes_path, method: 'get') do %>
-      <%= label_tag :start_date, 'Start Date:' %>
-      <%= date_field :start_date, '', value: params[:start_date],  class: 'btn btn-default' %>&nbsp;
+<%= form_tag(incomes_path, method: 'get') do %>
+    <b>Start Date: </b><input type="text" name="start_date" class="date-input" value="<%=params[:start_date]%>"/>&nbsp;
 
-      <%= label_tag :end_date, 'End Date:' %>
-      <%= date_field :end_date, '', value: params[:end_date], class: 'btn btn-default' %>&nbsp;
+    <b>End Date: </b><input type="text" name="end_date" class="date-input" value="<%=params[:end_date]%>"/>&nbsp;
 
-      <%= label_tag :user, 'User: ' %>
-      <%= collection_select('', :user_id, @users , :id, :name, {selected: params[:user_id], include_blank: 'All'},{ class: 'btn btn-default '})%>&nbsp;
+    <%= label_tag :user, 'User: ' %>
+    <%= collection_select('', :user_id, @users , :id, :name, {selected: params[:user_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
 
-      <%= label_tag :category, 'Category: ' %>
-      <%= collection_select('', :category_id, @income_categories, :id, :name, {prompt: 'Select Category', selected: params[:category_id], include_blank: 'All'},{ class: 'btn btn-default '})%>&nbsp;
+    <%= label_tag :category, 'Category: ' %>
+    <%= collection_select('', :category_id, @income_categories, :id, :name, {selected: params[:category_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
 
-      <%= submit_tag('Go', class: 'btn btn-success') %>
-  <% end %>
+    <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
+
+    <span class="dropdown"><button href="#" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">Export&nbsp;<span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="<%=incomes_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id], format: :pdf)%>">Pdf</a></li>
+        <li><a href="<%=incomes_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id],format: :xls)%>">Xls</a></li>
+      </ul>
+    </span>
+
+
+<% end %>
+
 <hr class="hr">
 
-<%= link_to 'New Income', new_income_path , class: 'btn btn-success' %>
+<%= link_to 'New Income', new_income_path , class: 'btn btn-sm btn-success' %>
 <br><br>
 
 <table class="table">
@@ -40,13 +48,15 @@
         <td><%= income.updater.name %></td>
         <td><%= link_to_if !income.attachment.blank?, 'Download', income.attachment.url, target: '_blank' %></td>
         <td>
-          <%= link_to 'Edit', edit_income_path(id: income.id), class: 'btn btn-success' %>
-          <%= link_to 'Delete', income_path(id: income.id), class: 'btn btn-danger', method:  :delete %>
+          <%= link_to 'Edit', edit_income_path(id: income.id), class: 'btn btn-sm btn-primary' %>
+          <%= link_to 'Delete', income_path(id: income.id), class: 'btn btn-sm btn-danger', method:  :delete %>
         </td>
       </tr>
-
   <% end %>
-
 </table>
+
+
+<!--<a  href="<%#=expenses_path%>"><i class="fa fa-tags"></i>-->
+<!--</a>-->
 
 

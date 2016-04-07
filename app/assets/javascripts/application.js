@@ -15,4 +15,14 @@
 // require jquery-ui.min
 //= require turbolinks
 //= require bootstrap.min
-//= require datepicker.js
+//= require bootstrap-datepicker
+
+
+$(document).on("page:change", function(){
+    $('.date-input').datepicker({
+        format: 'dd-mm-yyyy',
+        autoclose: true
+
+    });
+
+});

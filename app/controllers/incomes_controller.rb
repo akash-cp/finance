@@ -2,15 +2,18 @@ class IncomesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    # byebug
-    @income_categories = company.income_categories.where(company_id: company.id)
+    @income_categories = company.income_categories
     @users = company.users
-    @incomes = company.incomes
-    if !params[:start_date].nil? and !params[:end_date].nil?
-      @incomes = @incomes.range(Date.parse(params[:start_date].to_s), Date.parse(params[:end_date].to_s)) if params[:start_date].first.present? and params[:end_date].first.present?
+
+    params[:start_date] = Date.today.beginning_of_month.strftime('%d-%m-%Y') unless params[:start_date].present?
+    params[:end_date] = Date.today.end_of_month.strftime('%d-%m-%Y') unless params[:end_date].present?
+
+    @incomes = company.incomes.filter(filter_params(params))
+    respond_to do |format|
+      format.html
+      format.pdf
+      format.xls
     end
-    @incomes = @incomes.for_user(params[:user_id]) if params[:user_id].present?
-    @incomes = @incomes.for_categorincy(params[:category_id]) if params[:category_id].present?
   end
 
   def new
@@ -48,6 +51,10 @@ class IncomesController < ApplicationController
   private
   def income_params
     params.require(:income).permit(:date, :amount, :description, :income_category_id, :created_by, :updated_by, :company_id, :attachment)
+  end
+
+  def filter_params(params)
+    params.slice(:user_id, :start_date, :end_date, :category_id)
   end
 
 end

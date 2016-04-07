@@ -2,14 +2,20 @@ class ExpensesController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @expenses = Expense.all
-    @expense_categories = ExpenseCategory.where(company_id: company.id)
+    @expense_categories = company.expense_categories
     @users = company.users
-    if !params[:start_date].nil? and !params[:end_date].nil?
-      @expenses = @expenses.range(Date.parse(params[:start_date].to_s), Date.parse(params[:end_date].to_s)) if params[:start_date].first.present? and params[:end_date].first.present?
+
+    if params[:start_date].nil?
+      params[:start_date] = Date.today.beginning_of_month
+      params[:end_date] = Date.today.end_of_month
+    else
+      params[:start_date] = params[:start_date].first
+      params[:end_date] = params[:end_date].first
+      params[:start_date] = Date.today.beginning_of_month unless params[:start_date].present?
+      params[:end_date] = Date.today.end_of_month unless params[:end_date].present?
     end
-    @expenses = @expenses.for_user(params[:user_id]) if params[:user_id].present?
-    @expenses = @expenses.for_category(params[:category_id]) if params[:category_id].present?
+
+    @expenses = company.expenses.filter(filter_params(params))
   end
 
   def new
@@ -47,6 +53,10 @@ class ExpensesController < ApplicationController
   private
   def expense_params
     params.require(:expense).permit(:date, :amount, :description, :expense_category_id, :created_by, :updated_by , :company_id, :attachment)
+  end
+
+  def filter_params(params)
+    params.slice(:user_id, :start_date, :end_date, :category_id)
   end
 
 end
