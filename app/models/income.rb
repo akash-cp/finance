@@ -9,10 +9,14 @@ class Income < ActiveRecord::Base
   has_one :feed, as: :transactionable, class_name: 'Transaction'
   mount_uploader :attachment, AttachmentUploader
 
+  validates_numericality_of :amount, presence: true
+  validates_presence_of :date
+  validates_presence_of :income_category_id
+
   before_create :create_transaction
 
-  scope :for_start_date, ->(start_date) { where('date >= ?', start_date) }
-  scope :for_end_date, ->(end_date) { where('date <= ?', end_date) }
+  scope :for_start_date, ->(start_date) { where('date >= ?', Date.parse(start_date)) }
+  scope :for_end_date, ->(end_date) { where('date <= ?', Date.parse(end_date)) }
   scope :for_user_id, ->(user) { where(created_by: user) }
   scope :for_category_id, ->(category_id) { where(income_category_id: category_id) }
 

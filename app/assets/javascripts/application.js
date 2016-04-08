@@ -16,13 +16,12 @@
 //= require turbolinks
 //= require bootstrap.min
 //= require bootstrap-datepicker
+//= require chartkick
 
 
 $(document).on("page:change", function(){
     $('.date-input').datepicker({
         format: 'dd-mm-yyyy',
         autoclose: true
-
     });
-
 });

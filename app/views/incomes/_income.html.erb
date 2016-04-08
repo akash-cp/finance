@@ -1,0 +1,12 @@
+<tr data-id="<%= income.id %>">
+  <td><%= income.amount%></td>
+  <td><%= income.date.strftime('%d %b, %Y')%></td>
+  <td><%= income.income_category.name %></td>
+  <td><%= income.creater.name %></td>
+  <td><%= income.updater.name %></td>
+  <td><%= link_to_if !income.attachment.blank?, 'Download', income.attachment.url, target: '_blank' %></td>
+  <td>
+    <%= link_to 'Edit', edit_income_path(id: income.id), class: 'btn btn-sm btn-primary', remote: true %>
+    <%= link_to 'Delete', income_path(id: income.id), class: 'btn btn-sm btn-danger', method:  :delete, remote: true %>
+  </td>
+</tr>

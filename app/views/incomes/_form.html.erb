@@ -1,62 +1,49 @@
-<div class="col-md-6 col-md-offset-3">
-  <h1>New Income</h1>
-  <%= form_for(@income) do |f| %>
-      <% if @income.errors.any? %>
-          <div id="error_explanation">
-            <h2><%= pluralize(@income.errors.count, "error") %> prohibited this income from being saved:</h2>
-
-            <ul>
-              <% @income.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-              <% end %>
-            </ul>
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+    </div>
+    <%= form_for @income, remote: true do |f| %>
+        <div class="modal-body">
+          <div id="income_errors"></div>
+          <div class="form-group">
+            <%= f.label :amount, class: 'control-label '%>
+            <%= f.text_field :amount, autofocus: true, class:'form-control'%>
+            <%= f.hidden_field :company_id, value: current_user.company.id %>
+            <%= f.hidden_field :created_by, value: current_user.id %>
+            <%= f.hidden_field :updated_by, value: current_user.id %>
           </div>
-      <% end %>
 
-      <div class="field">
-        <%= f.label :amount %><br />
-        <%= f.text_field :amount, autofocus: true, class:"form-control" %>
-      </div>
+          <div class="form-group">
+            <%= f.label :description, class: 'control-label ' %>
+            <%= f.text_field :description ,class: 'form-control' %>
+          </div>
 
-      <div class="field">
-        <%= f.label :description %><br />
-        <%= f.text_field :description ,class: "form-control" %>
-      </div>
+          <div class="form-group">
+            <%= f.label :category, class: 'control-label ' %>
+            <%= collection_select(:income, :income_category_id, @income_categories, :id, :name,
+                                  {prompt: 'Select Category'},{class: 'form-control form-group'}) %>
+          </div>
 
-      <div class="field ">
-        <%= f.label :category %><br />
-        <%= collection_select(:income, :income_category_id, IncomeCategory.where(company_id: current_user.company_id), :id, :name,
-                              {prompt: 'Select Category'},{class: "form-control form-group"}) %>
-      </div>
+          <div class="form-group">
+            <%= f.label :date, class: 'control-label ' %>
+            <input type="text" name="income[date]" class="date-input" value="<%=Date.today.strftime('%d-%m-%Y')%>"/>&nbsp;
+          </div>
 
-      <div class="field">
-        <%= f.hidden_field :company_id, value: current_user.company.id %>
-      </div>
+            <div class="form-group">
+              <%= f.label :attachment, class: 'control-label ' %>
+              <%= f.file_field :attachment %>
+            </div>
 
-      <div class="field">
-        <%= f.hidden_field :created_by, value: current_user.id %>
-      </div>
+              <div class="form-group">
+              </div>
 
-      <div class="field">
-        <%= f.hidden_field :updated_by, value: current_user.id %>
-      </div>
-
-      <div class="field">
-        <%= f.label :date %><br />
-        <%= f.date_field :date, class: "form-control" %>
-      </div>
-      <br>
-
-      <div class="field">
-        <%= f.file_field :attachment %>
-      </div>
-      <br>
-
-      <div class="actions">
-        <%= f.submit 'Submit', class: 'btn btn-success' %>
-      </div>
-  <% end %>
-
-
-
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <%= f.submit 'Submit', class: 'btn btn-success' %>
+        </div>
+    <% end %>
+  </div>
 </div>

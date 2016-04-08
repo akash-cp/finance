@@ -1,11 +1,9 @@
 <h1>Transactions</h1>
 <hr class="hr">
 <%= form_tag(transactions_path, method: 'get') do %>
-    <%= label_tag :start_date, 'Start Date:' %>
-    <%= date_field :start_date, '', value: params[:start_date],  class: 'btn btn-sm btn-default' %>&nbsp;
+    <b>Start Date: </b><input type="text" name="start_date" class="date-input" value="<%=params[:start_date]%>"/>&nbsp;
 
-    <%= label_tag :end_date, 'End Date:' %>
-    <%= date_field :end_date, '', value: params[:end_date], class: 'btn btn-sm btn-default' %>&nbsp;
+    <b>End Date: </b><input type="text" name="end_date" class="date-input" value="<%=params[:end_date]%>"/>&nbsp;
 
     <%= label_tag :user, 'User: ' %>
     <%= collection_select('', :user_id, @users , :id, :name, { selected: params[:user_id], include_blank: 'All'}, class: 'btn btn-sm btn-default' )%>&nbsp;
@@ -14,10 +12,15 @@
     <%= select_tag :type, options_for_select(Transaction::TYPE, params[:type]), class: 'btn btn-sm btn-default '%>&nbsp;
 
     <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
-    <span class="export">
-     <%= select_tag :export_type, options_for_select(Transaction::EXPORT_TYPE, params[:export_type]), class: 'btn btn-sm btn-default '%>&nbsp;
-      <%= submit_tag('Export', class: 'btn btn-sm btn-primary') %>
+
+    <span class="dropdown"><button href="#" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">Export&nbsp;<span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="<%=transactions_path(start_date: params[:start_date], end_date: params[:end_date], user_id: params[:user_id], type: params[:type], format: :pdf)%>">Pdf</a></li>
+        <li><a href="<%=transactions_path(start_date: params[:start_date], end_date: params[:end_date], user_id: params[:user_id], type: params[:type], format: :xls)%>">Xls</a></li>
+      </ul>
     </span>
+
+
 <% end %>
 <hr class="hr">
 
@@ -31,7 +34,7 @@
   </tr>
   <% @transactions.each do |transaction| %>
       <tr>
-        <td><%= transaction.transactionable.amount %></td>
+        <td><%= transaction.transactionable.amount  %></td>
         <td><%= transaction.transactionable.date.strftime('%d %b, %Y') %></td>
         <td><%= transaction.transactionable_type %></td>
         <td><%= transaction.transactionable.creater.name %></td>
@@ -39,3 +42,7 @@
   <% end %>
 </table>
 <%= will_paginate @transactions, class: 'pagination' %>
+<br>
+<legend><h2>Analytics</h2></legend>
+<%= pie_chart @transaction_type_count %>
+

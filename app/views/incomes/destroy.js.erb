@@ -1,0 +1,2 @@
+$("tr[data-id='<%=@income.id%>']").remove();
+$("#chart").html("<%=escape_javascript(pie_chart @income_category_count) %>");

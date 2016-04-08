@@ -1,1 +1,23 @@
-<h1>sfefe</h1>
+<h1>Incomes</h1>
+<br>
+
+<table>
+  <tr>
+    <th class="col-xs-1">Amount</th>
+    <th class="col-xs-1">Date</th>
+    <th class="col-xs-2">Category</th>
+    <th class="col-xs-1">Created By</th>
+    <th class="col-xs-1">Updated By</th>
+    <th class="col-xs-1">Attachment</th>
+  </tr>
+  <% @incomes.each do |income| %>
+      <tr>
+        <td><%= income.amount%></td>
+        <td><%= income.date.strftime('%d %b, %Y')%></td>
+        <td><%= income.income_category.name%></td>
+        <td><%= income.creater.name %></td>
+        <td><%= income.updater.name %></td>
+        <td><%= link_to_if !income.attachment.blank?, 'Download', income.attachment.url, target: '_blank' %></td>
+      </tr>
+  <% end %>
+</table>

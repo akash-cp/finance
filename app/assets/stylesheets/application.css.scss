@@ -14,6 +14,11 @@
  *= require_self
  *= require tags
  *= require datepicker3
+ *= require dropdown
  * require jquery-ui.min
  */
 @import "font-awesome";
+
+.datepicker{
+  z-index: 9999 !important;
+}

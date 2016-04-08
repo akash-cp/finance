@@ -1,0 +1,2 @@
+$("#chart").html("<%=escape_javascript(pie_chart @income_category_count) %>");
+$("#incomes tbody").html("<%= escape_javascript(render partial: 'income', collection:  @incomes ) %>");

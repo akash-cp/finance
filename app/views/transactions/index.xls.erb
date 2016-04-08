@@ -1,0 +1,20 @@
+<h1>Transactions</h1>
+<br>
+
+<table>
+  <tr>
+    <th>Amount</th>
+    <th>Date</th>
+    <th>Type</th>
+    <th class="col-xs-2">Transaction By</th>
+
+  </tr>
+  <% @transactions.each do |transaction| %>
+      <tr>
+        <td><%= transaction.transactionable.amount %></td>
+        <td><%= transaction.transactionable.date.strftime('%d %b, %Y') %></td>
+        <td><%= transaction.transactionable_type %></td>
+        <td><%= transaction.transactionable.creater.name %></td>
+      </tr>
+  <% end %>
+</table>

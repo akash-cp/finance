@@ -41,11 +41,9 @@
         <%= f.hidden_field :updated_by, value: current_user.id %>
       </div>
 
-      <div class="field">
-        <%= f.label :date %><br />
-        <%= f.date_field :date,class: "form-control"   %>
-      </div>
-      <br>
+      <b>Date: </b><br>
+      <input type="text" name="expense[date]" class="date-input" value="<%=Date.today.strftime('%d-%m-%Y')%>"/>&nbsp;
+      <br><br>
 
       <div class="field">
         <%= f.file_field :attachment %>

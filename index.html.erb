@@ -1,0 +1,37 @@
+
++BRAKEMAN REPORT+
+
+Application path: /home/neo/RailsApps/finance
+Rails version: 4.2.4
+Brakeman version: 3.2.1
+Started at 2016-04-08 17:43:12 +0530
+Duration: 0.729140752 seconds
+Checks run: BasicAuth, BasicAuthTimingAttack, ContentTag, CreateWith, CrossSiteScripting, DefaultRoutes, Deserialize, DetailedExceptions, DigestDoS, DynamicFinders, EscapeFunction, Evaluation, Execute, FileAccess, FileDisclosure, FilterSkipping, ForgerySetting, HeaderDoS, I18nXSS, JRubyXML, JSONEncoding, JSONParsing, LinkTo, LinkToHref, MailTo, MassAssignment, MimeTypeDoS, ModelAttrAccessible, ModelAttributes, ModelSerialize, NestedAttributes, NestedAttributesBypass, NumberToCurrency, QuoteTableName, Redirect, RegexDoS, Render, RenderDoS, RenderInline, ResponseSplitting, RouteDoS, SQL, SQLCVEs, SSLVerify, SafeBufferManipulation, SanitizeMethods, SelectTag, SelectVulnerability, Send, SendFile, SessionManipulation, SessionSettings, SimpleFormat, SingleQuotes, SkipBeforeFilter, StripTags, SymbolDoSCVE, TranslateBug, UnsafeReflection, ValidationRegex, WithoutProtection, XMLDoS, YAMLParsing
+
+
++SUMMARY+
+
++-------------------+-------+
+| Scanned/Reported  | Total |
++-------------------+-------+
+| Controllers       | 12    |
+| Models            | 7     |
+| Templates         | 46    |
+| Errors            | 0     |
+| Security Warnings | 1 (0) |
++-------------------+-------+
+
++-------------------+-------+
+| Warning Type      | Total |
++-------------------+-------+
+| Denial of Service | 1     |
++-------------------+-------+
+
+
++SECURITY WARNINGS+
+
++------------+-------+--------+-------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| Confidence | Class | Method | Warning Type      | Message                                                                                                                              |
++------------+-------+--------+-------------------+--------------------------------------------------------------------------------------------------------------------------------------+
+| Medium     |       |        | Denial of Service | Rails 4.2.4 is vulnerable to denial of service via mime type caching (CVE-2016-0751). Upgrade to Rails version 4.2.5.1 near line 145 |
++------------+-------+--------+-------------------+--------------------------------------------------------------------------------------------------------------------------------------+

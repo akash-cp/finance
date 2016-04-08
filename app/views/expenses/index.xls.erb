@@ -1,0 +1,23 @@
+<h1>Expenses</h1>
+<br>
+
+<table>
+  <tr>
+    <th class="col-xs-1">Amount</th>
+    <th class="col-xs-1">Date</th>
+    <th class="col-xs-2">Category</th>
+    <th class="col-xs-1">Created By</th>
+    <th class="col-xs-1">Updated By</th>
+    <th class="col-xs-1">Attachment</th>
+  </tr>
+  <% @expenses.each do |expense| %>
+      <tr>
+        <td><%= expense.amount%></td>
+        <td><%= expense.date.strftime('%d %b, %Y')%></td>
+        <td><%= expense.expense_category.name%></td>
+        <td><%= expense.creater.name %></td>
+        <td><%= expense.updater.name %></td>
+        <td><%= link_to_if !expense.attachment.blank?, 'Download', expense.attachment.url, target: '_blank' %></td>
+      </tr>
+  <% end %>
+</table>
