@@ -1,0 +1,2 @@
+$("#transactions tbody").html("<%= escape_javascript(render partial: 'transaction', collection:  @transactions ) %>");
+$("#chart").html("<%=escape_javascript(pie_chart @transaction_type_count) %>");

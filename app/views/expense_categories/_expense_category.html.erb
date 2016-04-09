@@ -1,0 +1,9 @@
+<tr data-id="<%=expense_category.id%>">
+  <td><%= expense_category.name %></td>
+  <td><%= expense_category.creater.name %></td>
+  <td><%= expense_category.updater.name %></td>
+  <td>
+    <%= link_to 'Edit', edit_expense_category_path(id: expense_category.id), class: 'btn btn-sm btn-primary', remote: true  %>
+    <%= link_to 'Delete', expense_category_path(id: expense_category.id), class: 'btn btn-sm btn-danger', method: :delete, remote: true  %>
+  </td>
+</tr>

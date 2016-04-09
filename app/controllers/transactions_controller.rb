@@ -8,11 +8,12 @@ class TransactionsController < ApplicationController
     params[:end_date] = Date.today.end_of_month.strftime('%d-%m-%Y') unless params[:end_date].present?
 
     @transactions = company.transactions.filter(filter_params(params)).paginate(page: params[:page])
-    @transaction_type_count = Transaction.all.group(:transactionable_type).count
+    @transaction_type_count = @transactions.group(:transactionable_type).count
 
     respond_to do |format|
       format.html
       format.pdf
+      format.js
       format.xls
     end
   end

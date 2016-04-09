@@ -1,26 +1,26 @@
-<h1>Expense Categories</h1>
-<%= link_to 'New Expense', new_expense_category_path , class: 'btn btn-sm btn-success' %>
-<br><br>
-<div class="row">
-  <table class="table">
-    <tr>
-      <th class="col-xs-3">Name</th>
-      <th class="col-xs-3">Created By</th>
-      <th class="col-xs-3">Updated By</th>
-      <th class="col-xs-2"></th>
-    </tr>
-    <% @expense_categories.each do |expense| %>
-        <tr>
-          <td><%= expense.name %></td>
-          <td><%= expense.creater.name %></td>
-          <td><%= expense.updater.name %></td>
-          <td>
-            <%= link_to 'Edit', edit_expense_category_path(id: expense.id), class: 'btn btn-sm btn-primary' %>
-            <%= link_to 'Delete', expense_category_path(id: expense.id), class: 'btn btn-sm btn-danger', method: :delete %>
-          </td>
-        </tr>
-    <% end %>
+<h1 class="center">Expense Categories</h1>
+<div class="beautiful_line"></div>
 
-  </table>
-
+<div class="center">
+  <%= link_to 'New Expense Category', new_expense_category_path , class: 'btn btn-lg btn-success', remote: true %>
 </div>
+
+<br><br>
+
+<table id="expense_categories"  class="table">
+  <thead>
+  <tr>
+    <th class="col-xs-3">Name</th>
+    <th class="col-xs-3">Created By</th>
+    <th class="col-xs-3">Updated By</th>
+    <th class="col-xs-2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <%= render partial: 'expense_category', collection: @expense_categories %>
+  </tbody>
+</table>
+
+
+

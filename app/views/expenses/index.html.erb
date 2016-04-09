@@ -1,35 +1,42 @@
-<h1>Expenses</h1>
-<hr class="hr">
+<h1 class="center">Expenses</h1>
+<div class="beautiful_line"></div>
 
-<%= form_tag(expenses_path, method: 'get') do %>
-    <b>Start Date: </b><input type="text" name="start_date" class="date-input" value="<%=params[:start_date]%>"/>&nbsp;
+<div class="center">
+  <%= form_tag expenses_path, method: 'get', remote: true  do %>
+      <b>Start Date: </b><input type="text" name="start_date" class="date-input" value="<%=params[:start_date]%>"/>&nbsp;
 
-    <b>End Date: </b><input type="text" name="end_date" class="date-input" value="<%=params[:end_date]%>"/>&nbsp;
+      <b>End Date: </b><input type="text" name="end_date" class="date-input" value="<%=params[:end_date]%>"/>&nbsp;
 
-    <%= label_tag :user, 'User: ' %>
-    <%= collection_select('', :user_id, @users , :id, :name, {selected: params[:user_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
+      <%= label_tag :user, 'User: ' %>
+      <%= collection_select('', :user_id, @users , :id, :name, {selected: params[:user_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
 
-    <%= label_tag :category, 'Category: ' %>
-    <%= collection_select('', :category_id, @expense_categories, :id, :name, {selected: params[:category_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
+      <%= label_tag :category, 'Category: ' %>
+      <%= collection_select('', :category_id, @expense_categories, :id, :name, {selected: params[:category_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
 
-    <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
+      <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
 
-    <span class="dropdown"><button href="#" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">Export&nbsp;<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="<%=expenses_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id], format: :pdf)%>">Pdf</a></li>
-        <li><a href="<%=expenses_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id],format: :xls)%>">Xls</a></li>
-      </ul>
-    </span>
+      <div class="dropdown">
+        <button class="dropbtn">Export</button>
+        <div class="dropdown-content">
+          <a href="<%=expenses_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id], format: :pdf)%>">Pdf</a>
+          <a href="<%=expenses_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id],format: :xls)%>">Xls</a>
+        </div>
+      </div>
+
+  <% end %>
+</div>
+
+<br>
+
+    <div class="center">
+      <%= link_to 'New Expense', new_expense_path , class: 'btn btn-lg btn-success', remote: true  %>
+    </div>
+    <br>
 
 
-<% end %>
 
-<hr class="hr">
-
-<%= link_to 'New Expense', new_expense_path , class: 'btn btn-sm btn-success' %>
-<br><br>
-
-<table class="table">
+<table id="expenses" class="table">
+  <thead>
   <tr>
     <th class="col-xs-1">Amount</th>
     <th class="col-xs-1">Date</th>
@@ -39,24 +46,16 @@
     <th class="col-xs-1">Attachment</th>
     <th class="col-xs-1"></th>
   </tr>
-  <% @expenses.each do |expense| %>
-      <tr>
-        <td><%= expense.amount%></td>
-        <td><%= expense.date.strftime('%d %b, %Y')%></td>
-        <td><%= expense.expense_category.name%></td>
-        <td><%= expense.creater.name %></td>
-        <td><%= expense.updater.name %></td>
-        <td><%= link_to_if !expense.attachment.blank?, 'Download', expense.attachment.url, target: '_blank' %></td>
-        <td>
-          <%= link_to 'Edit', edit_expense_path(id: expense.id), class: 'btn btn-sm btn-primary' %>
-          <%= link_to 'Delete', expense_path(id: expense.id), class: 'btn btn-sm btn-danger', method:  :delete %>
-        </td>
-      </tr>
-  <% end %>
+  </thead>
+  <tbody>
+  <%= render partial: 'expense', collection: @expenses %>
+  </tbody>
 </table>
-
-<!--<a  href="<%#=expenses_path%>"><i class="fa fa-tags"></i>-->
-<!--</a>-->
-<legend><h2>Analytics</h2></legend>
-<%= pie_chart @expense_category_count %>
+<hr class="hr">
+<br>
+<h2 class="center">Analytics</h2>
+<div class="beautiful_line"></div>
+<div id="chart">
+  <%= pie_chart @expense_category_count %>
+</div>
 

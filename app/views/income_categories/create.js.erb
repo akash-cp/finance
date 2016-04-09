@@ -1,0 +1,6 @@
+<% if @income_category.errors.any? %>
+$("#income_category_errors").addClass('alert alert-danger').html("<%= escape_javascript(render 'error') %>").show();
+<% else %>
+$("#income_categories tbody").prepend("<%= escape_javascript(render partial: 'income_category', locals: { income_category: @income_category }) %>");
+$("#myModal").modal('hide');
+<% end %>

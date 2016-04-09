@@ -1,34 +1,34 @@
 class ExpensesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_category
 
   def index
-    @expense_categories = company.expense_categories
+    # authorize Expense
     @users = company.users
 
     params[:start_date] = Date.today.beginning_of_month.strftime('%d-%m-%Y') unless params[:start_date].present?
     params[:end_date] = Date.today.end_of_month.strftime('%d-%m-%Y') unless params[:end_date].present?
 
     @expenses = company.expenses.filter(filter_params(params))
-    @expense_category_count = @expense_categories.joins(:expenses).group(:name).count
+    @expense_category_count = @expense_categories.joins(:expenses).filter(filter_params(params)).group(:name).count
 
     respond_to do |format|
       format.html
+      format.js
       format.pdf
       format.xls
     end
   end
 
   def new
+    authorize Expense
     @expense = Expense.new
   end
 
   def create
     @expense = Expense.new(expense_params)
-    if @expense.save
-      redirect_to expenses_path
-    else
-      render 'new'
-    end
+    @expense.save
+    set_category_count
   end
 
   def edit
@@ -37,16 +37,15 @@ class ExpensesController < ApplicationController
 
   def update
     @expense = Expense.find_by(id: params[:id])
-    if @expense.update_attributes(expense_params)
-      @expense.update_columns(updated_by: current_user.id)
-    else
-      render 'update'
-    end
+    @expense.update_attributes(expense_params)
+    @expense.update_columns(updated_by: current_user.id)
+    set_category_count
   end
 
   def destroy
-    Expense.find_by(id: params[:id]).destroy
-    redirect_to expenses_path
+    @expense = Expense.find_by(id: params[:id])
+    @expense.destroy
+    set_category_count
   end
 
 
@@ -57,6 +56,14 @@ class ExpensesController < ApplicationController
 
   def filter_params(params)
     params.slice(:user_id, :start_date, :end_date, :category_id)
+  end
+
+  def set_category
+    @expense_categories = company.expense_categories
+  end
+
+  def set_category_count
+    @expense_category_count = @expense_categories.joins(:expenses).group(:name).count
   end
 
 end

@@ -1,0 +1,7 @@
+<% if @expense.errors.any? %>
+    $("#expense_errors").addClass('alert alert-danger').html("<%= escape_javascript(render 'error') %>").show();
+<% else %>
+    $("tr[data-id=<%=@expense.id%>]").replaceWith("<%= escape_javascript(render partial: 'expense', locals: { expense: @expense }) %>");
+    $("#chart").html("<%=escape_javascript(pie_chart @expense_category_count) %>");
+    $("#myModal").modal('hide');
+<% end %>

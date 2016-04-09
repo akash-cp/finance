@@ -12,12 +12,7 @@ class IncomeCategoriesController < ApplicationController
 
   def create
     @income_category = IncomeCategory.new(income_category_params)
-    if @income_category.save
-      @income_category.update_attributes(created_by: current_user.id, updated_by: current_user.id)
-      redirect_to income_categories_path
-    else
-      render 'new'
-    end
+    @income_category.save
   end
 
   def edit
@@ -26,27 +21,18 @@ class IncomeCategoriesController < ApplicationController
 
   def update
     @income_category = IncomeCategory.find_by(id: params[:id])
-    if @income_category.update_attributes(income_category_params)
-      @income_category.update_attributes(updated_by: current_user.id)
-    else
-      render 'update'
-    end
+    @income_category.update_attributes(income_category_params)
+    @income_category.update_attributes(updated_by: current_user.id)
   end
 
   def destroy
     @income_category = IncomeCategory.find_by(id: params[:id])
-    if @income_category.destroy
-      redirect_to income_categories_path
-    else
-      flash[:notice] = 'Category has Incomes. Category cannot be deleted.'
-      redirect_to income_categories_path
-    end
+    @income_category.destroy
   end
 
   private
   def income_category_params
-    params.require(:income_category).permit(:name, :company_id)
-
+    params.require(:income_category).permit(:name, :company_id, :created_by, :updated_by)
   end
 
 end

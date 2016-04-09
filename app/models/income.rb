@@ -6,7 +6,7 @@ class Income < ActiveRecord::Base
   belongs_to :income_category
   belongs_to :creater, class_name: 'User', foreign_key: :created_by
   belongs_to :updater, class_name: 'User', foreign_key: :updated_by
-  has_one :feed, as: :transactionable, class_name: 'Transaction'
+  has_one :feed, as: :transactionable, class_name: 'Transaction', dependent: :destroy
   mount_uploader :attachment, AttachmentUploader
 
   validates_numericality_of :amount, presence: true

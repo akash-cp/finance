@@ -1,7 +1,7 @@
 <% if @income.errors.any? %>
-  $("#income_errors").html("<%= escape_javascript(render 'error') %>").show();
+    $("#income_errors").html("<%= escape_javascript(render 'error') %>").show();
 <% else %>
-  $("tr[data-id='<%=@income.id%>']").replaceWith("<%= escape_javascript(render partial: 'income', locals: { income: @income }) %>");
-  $("#chart").html("<%=escape_javascript(pie_chart @income_category_count) %>");
-  $("#myModal").modal('hide');
+    $("tr[data-id='<%=@income.id%>']").replaceWith("<%= escape_javascript(render partial: 'income', locals: { income: @income }) %>");
+    $("#chart").html("<%=escape_javascript(pie_chart @income_category_count) %>");
+    $("#myModal").modal('hide');
 <% end %>

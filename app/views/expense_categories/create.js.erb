@@ -1,0 +1,6 @@
+<% if @expense_category.errors.any? %>
+$("#expense_category_errors").addClass('alert alert-danger').html("<%= escape_javascript(render 'error') %>").show();
+<% else %>
+$("#expense_categories tbody").prepend("<%= escape_javascript(render partial: 'expense_category', locals: { expense_category: @expense_category }) %>");
+$("#myModal").modal('hide');
+<% end %>

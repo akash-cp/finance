@@ -6,10 +6,14 @@ class Expense < ActiveRecord::Base
   belongs_to :expense_category
   belongs_to :creater, class_name: 'User', foreign_key: :created_by
   belongs_to :updater, class_name: 'User', foreign_key: :updated_by
-  has_one :feed, as: :transactionable, class_name: 'Transaction'
+  has_one :feed, as: :transactionable, class_name: 'Transaction', dependent: :destroy
   mount_uploader :attachment, AttachmentUploader
 
   before_create :create_transaction
+
+  validates_numericality_of :amount, presence: true
+  validates_presence_of :date
+  validates_presence_of :expense_category_id
 
   scope :for_start_date, ->(start_date) { where('date >= ?', Date.parse(start_date)) }
   scope :for_end_date, ->(end_date) { where('date <= ?', Date.parse(end_date)) }

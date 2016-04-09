@@ -12,12 +12,7 @@ class ExpenseCategoriesController < ApplicationController
 
   def create
     @expense_category = ExpenseCategory.new(expense_category_params)
-    if @expense_category.save
-      @expense_category.update_attributes(created_by: current_user.id, updated_by: current_user.id)
-      redirect_to expense_categories_path
-    else
-      render 'new'
-    end
+    @expense_category.save
   end
 
   def edit
@@ -26,28 +21,18 @@ class ExpenseCategoriesController < ApplicationController
 
   def update
     @expense_category = ExpenseCategory.find_by(id: params[:id])
-    if @expense_category.update_attributes(expense_category_params)
-      @expense_category.update_attributes(updated_by: current_user.id)
-    else
-      render 'update'
-    end
+    @expense_category.update_attributes(expense_category_params)
+    @expense_category.update_attributes(updated_by: current_user.id)
   end
 
   def destroy
     @expense_category =  ExpenseCategory.find_by(id: params[:id])
-    if @expense_category.destroy
-      redirect_to expense_categories_path
-    else
-      flash[:notice] = 'Category has Incomes. Category cannot be deleted.'
-      redirect_to expense_categories_path
-    end
-
+    @expense_category.destroy
   end
 
   private
   def expense_category_params
-    params.require(:expense_category).permit(:name, :company_id)
-
+    params.require(:expense_category).permit(:name, :company_id, :created_by, :updated_by)
   end
 
 end

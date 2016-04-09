@@ -1,0 +1,9 @@
+<tr data-id="<%=income_category.id%>">
+  <td><%= income_category.name %></td>
+  <td><%= income_category.creater.name %></td>
+  <td><%= income_category.updater.name %></td>
+  <td>
+    <%= link_to 'Edit', edit_income_category_path(id: income_category.id), class: 'btn btn-sm btn-primary', remote: true  %>
+    <%= link_to 'Delete', income_category_path(id: income_category.id), class: 'btn btn-sm btn-danger', method: :delete, remote: true  %>
+  </td>
+</tr>

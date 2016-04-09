@@ -15,10 +15,23 @@
  *= require tags
  *= require datepicker3
  *= require dropdown
+ *= require w3
  * require jquery-ui.min
  */
 @import "font-awesome";
 
 .datepicker{
   z-index: 9999 !important;
+}
+
+body{
+  background: image-url('white_background.jpg');
+  padding-top: 53px;
+}
+
+.beautiful_line {
+  margin: 25px 0;
+  height: 1px;
+  background: black;
+  background: -webkit-gradient(linear, 0 0, 100% 0, from(white), to(white), color-stop(50%, black));
 }

@@ -1,7 +1,6 @@
 class IncomesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_category
-  #around_action :set_category_count, only: [:create,:update, :destroy]
 
   def index
     @users = company.users
@@ -65,6 +64,5 @@ class IncomesController < ApplicationController
   def set_category_count
     @income_category_count = @income_categories.joins(:incomes).group(:name).count
   end
-
 
 end

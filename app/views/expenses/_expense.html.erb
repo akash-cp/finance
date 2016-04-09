@@ -1,0 +1,12 @@
+<tr data-id="<%= expense.id %>">
+  <td><%= expense.amount%></td>
+  <td><%= expense.date.strftime('%d %b, %Y')%></td>
+  <td><%= expense.expense_category.name %></td>
+  <td><%= expense.creater.name %></td>
+  <td><%= expense.updater.name %></td>
+  <td><%= link_to_if !expense.attachment.blank?, 'Download', expense.attachment.url, target: '_blank' %></td>
+  <td>
+    <%= link_to 'Edit', edit_expense_path(id: expense.id), class: 'btn btn-sm btn-primary', remote: true %>
+    <%= link_to 'Delete', expense_path(id: expense.id), class: 'btn btn-sm btn-danger', method:  :delete, remote: true %>
+  </td>
+</tr>

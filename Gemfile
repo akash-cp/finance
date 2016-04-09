@@ -20,7 +20,8 @@ gem 'prawn-rails'
 gem 'to_xls-rails'
 gem 'font-awesome-rails'
 gem 'chartkick', '~> 1.2.4'
-gem 'rack-mini-profiler'
+gem 'pundit'
+#gem 'rack-mini-profiler'
 gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'byebug'

@@ -1,48 +1,56 @@
-<h1>Transactions</h1>
-<hr class="hr">
-<%= form_tag(transactions_path, method: 'get') do %>
-    <b>Start Date: </b><input type="text" name="start_date" class="date-input" value="<%=params[:start_date]%>"/>&nbsp;
+<h1 class="center">Transactions</h1>
+<div class="beautiful_line"></div>
 
-    <b>End Date: </b><input type="text" name="end_date" class="date-input" value="<%=params[:end_date]%>"/>&nbsp;
+<div class="center">
+  <%= form_tag transactions_path, method: 'get', remote: true do %>
+      <b>Start Date: </b><input type="text" name="start_date" class="date-input" value="<%=params[:start_date]%>"/>&nbsp;
 
-    <%= label_tag :user, 'User: ' %>
-    <%= collection_select('', :user_id, @users , :id, :name, { selected: params[:user_id], include_blank: 'All'}, class: 'btn btn-sm btn-default' )%>&nbsp;
+      <b>End Date: </b><input type="text" name="end_date" class="date-input" value="<%=params[:end_date]%>"/>&nbsp;
 
-    <%= label_tag :type, 'Show: ' %>
-    <%= select_tag :type, options_for_select(Transaction::TYPE, params[:type]), class: 'btn btn-sm btn-default '%>&nbsp;
+      <%= label_tag :user, 'User: ' %>
+      <%= collection_select('', :user_id, @users , :id, :name, { selected: params[:user_id], include_blank: 'All'}, class: 'btn btn-sm btn-default' )%>&nbsp;
 
-    <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
+      <%= label_tag :type, 'Show: ' %>
+      <%= select_tag :type, options_for_select(Transaction::TYPE, params[:type]), class: 'btn btn-sm btn-default '%>&nbsp;
 
-    <span class="dropdown"><button href="#" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">Export&nbsp;<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="<%=transactions_path(start_date: params[:start_date], end_date: params[:end_date], user_id: params[:user_id], type: params[:type], format: :pdf)%>">Pdf</a></li>
-        <li><a href="<%=transactions_path(start_date: params[:start_date], end_date: params[:end_date], user_id: params[:user_id], type: params[:type], format: :xls)%>">Xls</a></li>
-      </ul>
-    </span>
+      <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
 
 
-<% end %>
-<hr class="hr">
 
-<table class="table">
+      <div class="dropdown">
+        <button class="dropbtn">Export</button>
+        <div class="dropdown-content">
+          <a href="<%=transactions_path(start_date: params[:start_date], end_date: params[:end_date], user_id: params[:user_id], type: params[:type], format: :pdf)%>">Pdf</a>
+          <a href="<%=transactions_path(start_date: params[:start_date], end_date: params[:end_date], user_id: params[:user_id], type: params[:type], format: :xls)%>">Xls</a>
+        </div>
+      </div>
+
+
+  <% end %>
+</div>
+
+<br>
+
+<table id="transactions" class="table">
+  <thead>
   <tr>
     <th>Amount</th>
     <th>Date</th>
     <th>Type</th>
     <th class="col-xs-2">Transaction By</th>
-
   </tr>
-  <% @transactions.each do |transaction| %>
-      <tr>
-        <td><%= transaction.transactionable.amount  %></td>
-        <td><%= transaction.transactionable.date.strftime('%d %b, %Y') %></td>
-        <td><%= transaction.transactionable_type %></td>
-        <td><%= transaction.transactionable.creater.name %></td>
-      </tr>
-  <% end %>
+  </thead>
+  <tbody>
+  <%= render partial: 'transaction', collection: @transactions %>
+  </tbody>
 </table>
+<hr class="hr">
+
 <%= will_paginate @transactions, class: 'pagination' %>
 <br>
-<legend><h2>Analytics</h2></legend>
-<%= pie_chart @transaction_type_count %>
 
+<h2 class="center">Analytics</h2>
+<div class="beautiful_line"></div>
+<div id="chart">
+  <%= pie_chart @transaction_type_count %>
+</div>

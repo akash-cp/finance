@@ -1,50 +1,50 @@
-<h1>Incomes</h1>
-<hr class="hr">
-
-<%= form_tag incomes_path, method: 'get', remote: true do %>
-    <b>Start Date: </b><input type="text" name="start_date" class="date-input" value="<%=params[:start_date]%>"/>&nbsp;
-
-   <b>End Date: </b><input type="text" name="end_date" class="date-input" value="<%=params[:end_date]%>"/>&nbsp;
-
-    <%= label_tag :user, 'User: ' %>
-    <%= collection_select('', :user_id, @users , :id, :name, {selected: params[:user_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
-
-    <%= label_tag :category, 'Category: ' %>
-    <%= collection_select('', :category_id, @income_categories, :id, :name, {selected: params[:category_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
-
-    <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
+<h1 class="center">Incomes</h1>
+<div class="beautiful_line"></div>
 
 
-    <div class="dropdown">
-      <button class="dropbtn">Dropdown</button>
-      <div class="dropdown-content">
-        <a href="<%=incomes_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id], format: :pdf)%>">Pdf</a>
-        <a href="<%=incomes_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id],format: :xls)%>">Xls</a>
+<div class="center">
+  <%= form_tag incomes_path, method: 'get', remote: true do %>
+      <b>Start Date: </b><input type="text" name="start_date" class="date-input" value="<%=params[:start_date]%>"/>&nbsp;
+
+      <b>End Date: </b><input type="text" name="end_date" class="date-input" value="<%=params[:end_date]%>"/>&nbsp;
+
+      <%= label_tag :user, 'User: ' %>
+      <%= collection_select('', :user_id, @users , :id, :name, {selected: params[:user_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
+
+      <%= label_tag :category, 'Category: ' %>
+      <%= collection_select('', :category_id, @income_categories, :id, :name, {selected: params[:category_id], include_blank: 'All'},{ class: 'btn btn-sm btn-default '})%>&nbsp;
+
+      <%= submit_tag('Go', class: 'btn btn-sm btn-primary') %>
+
+
+      <div class="dropdown">
+        <button class="dropbtn">Export</button>
+        <div class="dropdown-content">
+          <a href="<%=incomes_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id], format: :pdf)%>">Pdf</a>
+          <a href="<%=incomes_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id],format: :xls)%>">Xls</a>
+        </div>
       </div>
-    </div>
-
-    <span class="dropdown"><button href="#" class="btn btn-sm btn-primary dropdown-toggle" data-toggle="dropdown">Export&nbsp;<span class="caret"></span></button>
-      <ul class="dropdown-menu">
-        <li><a href="<%=incomes_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id], format: :pdf)%>">Pdf</a></li>
-        <li><a href="<%=incomes_path(start_date: params[:start_date],end_date: params[:end_date], user_id: params[:user_id], category_id: params[:category_id],format: :xls)%>">Xls</a></li>
-      </ul>
-    </span>
 
 
-<% end %>
+  <% end %>
+</div>
 
-<hr class="hr">
+<br>
 
-<%= link_to 'New Income', new_income_path , class: 'btn btn-sm btn-success', remote: true  %>
 
-<br><br>
+<div class="center">
+  <%= link_to 'New Income', new_income_path , class: 'center btn btn-lg btn-success', remote: true  %>
+</div>
 
-<table id="incomes"  class="table">
+
+<br>
+
+<table id="incomes" class="table">
   <thead>
   <tr>
     <th class="col-xs-1">Amount</th>
     <th class="col-xs-1">Date</th>
-    <th class="col-xs-2">Category</th>
+    <th class="col-xs-1">Category</th>
     <th class="col-xs-1">Created By</th>
     <th class="col-xs-1">Updated By</th>
     <th class="col-xs-1">Attachment</th>
@@ -55,9 +55,10 @@
     <%= render partial: 'income', collection: @incomes %>
   </tbody>
 </table>
-
-
-<legend><h2>Analytics</h2></legend>
-<div id="chart">
+<hr class="hr">
+<br>
+<h2 class="center">Analytics</h2>
+<div class="beautiful_line"></div>
+<div id="chart" >
 <%= pie_chart @income_category_count %>
 </div>

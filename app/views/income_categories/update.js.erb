@@ -1,0 +1,6 @@
+<% if @income_category.errors.any? %>
+$("#income_category_errors").html("<%= escape_javascript(render 'error') %>").show();
+<% else %>
+$("tr[data-id='<%=@income_category.id%>']").replaceWith("<%= escape_javascript(render partial: 'income_category', locals: { income_category: @income_category }) %>");
+$("#myModal").modal('hide');
+<% end %>
