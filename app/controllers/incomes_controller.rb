@@ -3,6 +3,7 @@ class IncomesController < ApplicationController
   before_action :set_category
 
   def index
+    authorize Income
     @users = company.users
 
     params[:start_date] = Date.today.beginning_of_month.strftime('%d-%m-%Y') unless params[:start_date].present?
@@ -20,28 +21,33 @@ class IncomesController < ApplicationController
   end
 
   def new
+    authorize Income
     @income = Income.new
   end
 
   def create
+    authorize Income
     @income = Income.new(income_params)
     @income.save
     set_category_count
   end
 
   def edit
+    authorize Income
     @income_categories = company.income_categories
     @income = Income.find_by(id: params[:id])
   end
 
   def update
+    authorize Income
     @income = Income.find_by(id: params[:id])
     @income.update_attributes(income_params)
     @income.update_columns(updated_by: current_user.id)
-   set_category_count
+    set_category_count
   end
 
   def destroy
+    authorize Income
     @income = Income.find_by(id: params[:id])
     @income.destroy
     set_category_count
@@ -63,6 +69,11 @@ class IncomesController < ApplicationController
 
   def set_category_count
     @income_category_count = @income_categories.joins(:incomes).group(:name).count
+  end
+
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to root_path
   end
 
 end

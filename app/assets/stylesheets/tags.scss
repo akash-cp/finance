@@ -1,20 +1,27 @@
 .hr{
-  border: 1px solid gainsboro;
+  //border: 1px solid gainsboro;
+  border-top: 1px solid #dddddd;
 }
 
 .center{
   text-align: center;
+
 }
 
 .left{
   text-align: left;
+  float :left;
 }
 
 .right{
   text-align: right;
+  float: right;
 }
 
 .export{
  float: right;
 }
 
+.roles-panel{
+  border-radius: 0px;
+}

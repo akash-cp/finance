@@ -1,8 +1,7 @@
 class ExpensePolicy < ApplicationPolicy
 
   def index?
-    user.company.owner_id == user.id
-    false
+    user.role.can_view_expense if user
   end
 
   def show?
@@ -10,23 +9,23 @@ class ExpensePolicy < ApplicationPolicy
   end
 
   def new?
-    false
+    create?
   end
 
   def create?
-
+    user.role.can_create_expense
   end
 
   def edit?
-
+    update?
   end
 
   def update?
-
+    user.role.can_edit_expense
   end
 
   def destroy?
-
+    user.role.can_delete_expense
   end
 
 end

@@ -3,7 +3,7 @@ class ExpensesController < ApplicationController
   before_action :set_category
 
   def index
-    # authorize Expense
+    authorize Expense
     @users = company.users
 
     params[:start_date] = Date.today.beginning_of_month.strftime('%d-%m-%Y') unless params[:start_date].present?
@@ -26,16 +26,19 @@ class ExpensesController < ApplicationController
   end
 
   def create
+    authorize Expense
     @expense = Expense.new(expense_params)
     @expense.save
     set_category_count
   end
 
   def edit
+    authorize Expense
     @expense = Expense.find_by(id: params[:id])
   end
 
   def update
+    authorize Expense
     @expense = Expense.find_by(id: params[:id])
     @expense.update_attributes(expense_params)
     @expense.update_columns(updated_by: current_user.id)
@@ -43,6 +46,7 @@ class ExpensesController < ApplicationController
   end
 
   def destroy
+    authorize Expense
     @expense = Expense.find_by(id: params[:id])
     @expense.destroy
     set_category_count

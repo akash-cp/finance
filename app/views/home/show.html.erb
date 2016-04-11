@@ -1,0 +1,88 @@
+<h1 class="center">User Details</h1>
+<div class="beautiful_line"></div>
+
+<div class="row">
+  <div class="col-xs-6">
+    <h3><b>Name: </b><%= @user.name%></h3><br>
+    <h3><b>Email: </b><%= @user.email%></h3><br>
+    <h3><b>Permissions: </b><%= @user.role.title %></h3><br>
+
+  </div>
+  <div class="col-xs-6">
+    <%= image_tag @user.avatar.url(:thumb) %>
+  </div>
+
+</div>
+
+
+<div class="card card-block">
+  <div class="col-md-4">
+    <h3></h3>
+  </div>
+  <table class="table">
+    <thead>
+    <tr>
+      <th class="col-xs-4">Permission</th>
+      <th class="col-xs-2 ">VIEW</th>
+      <th class="col-xs-2">CREATE</th>
+      <th class="col-xs-2">EDIT</th>
+      <th class="col-xs-2">DELETE</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <!-- Income-->
+      <td>Income</td>
+      <td><%= @user.role.can_view_income ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_create_income ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_edit_income ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_delete_income ? (fa_icon 'check') : (fa_icon 'times') %></td>
+    </tr>
+    <tr>
+      <!-- Income Category-->
+
+      <td>Income Category</td>
+      <td><%= @user.role.can_view_income_category ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_create_income_category ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_edit_income_category ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_delete_income_category ? (fa_icon 'check') : (fa_icon 'times') %></td>
+    </tr>
+
+    <tr>
+      <!-- Expense-->
+      <td>Expense</td>
+      <td><%= @user.role.can_view_expense ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_create_expense ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_edit_expense ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_delete_expense ? (fa_icon 'check') : (fa_icon 'times') %></td>
+    </tr>
+    <tr>
+      <!-- Expense Category-->
+      <td>Expense Category</td>
+      <td><%= @user.role.can_view_expense_category ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_create_expense_category ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_edit_expense_category ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_delete_expense_category ? (fa_icon 'check') : (fa_icon 'times') %></td>
+    </tr>
+    <tr>
+      <!-- User-->
+      <td>User</td>
+      <td><%= @user.role.can_view_user ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_invite_user ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_edit_user ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_delete_user ? (fa_icon 'check') : (fa_icon 'times') %></td>
+    </tr>
+    <tr>
+      <!-- Role-->
+      <td>Role</td>
+      <td><%= @user.role.can_view_role ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_create_role ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_edit_role ? (fa_icon 'check') : (fa_icon 'times') %></td>
+      <td><%= @user.role.can_delete_role ? (fa_icon 'check') : (fa_icon 'times') %></td>
+    </tr>
+    </tbody>
+  </table>
+  <br>
+  <%= link_to 'Edit', edit_role_path(id: @user.role.id),class: 'btn btn-sm btn-primary' %>
+  <%= link_to 'Back', roles_path, class: 'btn btn-sm btn-primary' %>
+</div><br>

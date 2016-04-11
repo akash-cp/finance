@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405062615) do
+ActiveRecord::Schema.define(version: 20160411055344) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -77,6 +77,39 @@ ActiveRecord::Schema.define(version: 20160405062615) do
   add_index "incomes", ["company_id"], name: "index_incomes_on_company_id", using: :btree
   add_index "incomes", ["income_category_id"], name: "index_incomes_on_income_category_id", using: :btree
 
+  create_table "roles", force: :cascade do |t|
+    t.string   "title",                       limit: 255, default: "",   null: false
+    t.boolean  "can_view_income",                         default: true
+    t.boolean  "can_create_income",                       default: true
+    t.boolean  "can_edit_income",                         default: true
+    t.boolean  "can_delete_income",                       default: true
+    t.boolean  "can_view_expense",                        default: true
+    t.boolean  "can_create_expense",                      default: true
+    t.boolean  "can_edit_expense",                        default: true
+    t.boolean  "can_delete_expense",                      default: true
+    t.boolean  "can_view_income_category",                default: true
+    t.boolean  "can_create_income_category",              default: true
+    t.boolean  "can_edit_income_category",                default: true
+    t.boolean  "can_delete_income_category",              default: true
+    t.boolean  "can_view_expense_category",               default: true
+    t.boolean  "can_create_expense_category",             default: true
+    t.boolean  "can_edit_expense_category",               default: true
+    t.boolean  "can_delete_expense_category",             default: true
+    t.boolean  "can_view_user",                           default: true
+    t.boolean  "can_invite_user",                         default: true
+    t.boolean  "can_edit_user",                           default: true
+    t.boolean  "can_delete_user",                         default: true
+    t.boolean  "can_view_role",                           default: true
+    t.boolean  "can_create_role",                         default: true
+    t.boolean  "can_edit_role",                           default: true
+    t.boolean  "can_delete_role",                         default: true
+    t.integer  "company_id",                  limit: 4
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+  end
+
+  add_index "roles", ["company_id"], name: "index_roles_on_company_id", using: :btree
+
   create_table "transactions", force: :cascade do |t|
     t.integer  "company_id",           limit: 4
     t.integer  "transactionable_id",   limit: 4
@@ -117,6 +150,7 @@ ActiveRecord::Schema.define(version: 20160405062615) do
     t.integer  "invited_by_id",          limit: 4
     t.string   "invited_by_type",        limit: 255
     t.integer  "invitations_count",      limit: 4,   default: 0
+    t.integer  "role_id",                limit: 4
   end
 
   add_index "users", ["company_id"], name: "fk_rails_7682a3bdfe", using: :btree
@@ -126,6 +160,7 @@ ActiveRecord::Schema.define(version: 20160405062615) do
   add_index "users", ["invitations_count"], name: "index_users_on_invitations_count", using: :btree
   add_index "users", ["invited_by_id"], name: "index_users_on_invited_by_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["role_id"], name: "index_users_on_role_id", using: :btree
 
   add_foreign_key "expense_categories", "companies"
   add_foreign_key "expenses", "companies"
@@ -133,6 +168,8 @@ ActiveRecord::Schema.define(version: 20160405062615) do
   add_foreign_key "income_categories", "companies"
   add_foreign_key "incomes", "companies"
   add_foreign_key "incomes", "income_categories"
+  add_foreign_key "roles", "companies"
   add_foreign_key "transactions", "companies"
   add_foreign_key "users", "companies"
+  add_foreign_key "users", "roles"
 end

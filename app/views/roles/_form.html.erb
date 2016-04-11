@@ -1,0 +1,151 @@
+<%= form_for @role do |f| %>
+
+    <div id="role_errors"></div>
+    <div class="row">
+      <div class="form-group col-xs-5">
+        <%= f.label :title, class: 'control-label '%>
+        <%= f.text_field :title, autofocus: true, class:'form-control' %>
+        <%= f.hidden_field :company_id, value: current_user.company.id %>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <h3 class="center">Income</h3>
+      <hr>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_view_income, class: 'control-label '%>
+        <%= f.check_box :can_view_income %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_create_income, class: 'control-label '%>
+        <%= f.check_box :can_create_income %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_edit_income, class: 'control-label '%>
+        <%= f.check_box :can_edit_income %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_delete_income, class: 'control-label '%>
+        <%= f.check_box :can_delete_income %>
+      </div>
+    </div>
+
+    <div class="row">
+      <h3 class="center">Expense</h3>
+      <hr>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_view_expense, class: 'control-label '%>
+        <%= f.check_box :can_view_income %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_create_expense, class: 'control-label '%>
+        <%= f.check_box :can_create_expense %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_edit_expense, class: 'control-label '%>
+        <%= f.check_box :can_edit_expense %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_delete_expense, class: 'control-label '%>
+        <%= f.check_box :can_delete_expense %>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <h3 class="center">Income Category</h3>
+      <hr>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_view_income_category, class: 'control-label '%>
+        <%= f.check_box :can_view_income_category %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_create_income_category, class: 'control-label '%>
+        <%= f.check_box :can_create_income_category %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_edit_income_category, class: 'control-label '%>
+        <%= f.check_box :can_edit_income_category %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_delete_income_category, class: 'control-label '%>
+        <%= f.check_box :can_delete_income_category %>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <h3 class="center">Expense Category</h3>
+      <hr>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_view_expense_category, class: 'control-label '%>
+        <%= f.check_box :can_view_expense_category %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_create_expense_category, class: 'control-label '%>
+        <%= f.check_box :can_create_expense_category %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_edit_expense_category, class: 'control-label '%>
+        <%= f.check_box :can_edit_expense_category %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_delete_expense_category, class: 'control-label '%>
+        <%= f.check_box :can_delete_expense_category %>
+      </div>
+
+    </div>
+
+    <div class="row">
+      <h3 class="center">User</h3>
+      <hr>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_view_user, class: 'control-label '%>
+        <%= f.check_box :can_view_user %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_invite_user, class: 'control-label '%>
+        <%= f.check_box :can_invite_user %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_edit_user, class: 'control-label '%>
+        <%= f.check_box :can_edit_user %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_delete_user, class: 'control-label '%>
+        <%= f.check_box :can_delete_user %>
+      </div>
+    </div>
+
+    <div class="row">
+      <h3 class="center">Role</h3>
+      <hr>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_view_role, class: 'control-label '%>
+        <%= f.check_box :can_view_role %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_create_role, class: 'control-label '%>
+        <%= f.check_box :can_create_role %>
+      </div>
+      <div class="form-group col-xs-3">
+        <%= f.label :can_edit_role, class: 'control-label '%>
+        <%= f.check_box :can_edit_role %>
+      </div>
+      <div class="form-group col-xs-2">
+        <%= f.label :can_delete_role, class: 'control-label '%>
+        <%= f.check_box :can_delete_role %>
+      </div>
+    </div>
+
+    <div class="row col-lg-3">
+      <%= f.submit 'Submit', class: 'btn btn-success' %>
+
+    </div>
+
+<% end %>
+<br>
+<br>
+<br>
+<br>

@@ -1,0 +1,34 @@
+<h1 class="center">Roles</h1>
+<div class="beautiful_line"></div>
+
+<div class="center">
+  <%= link_to 'New Role', new_role_path , class: 'center btn btn-lg btn-success'%>
+</div>
+<br>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th class="col-xs-10">
+      Roles
+    </th>
+    <th class="col-xs-2"></th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @roles.each do |role| %>
+      <tr>
+
+        <td>
+          <%= role.title %>
+        </td>
+
+        <td>
+          <%= link_to 'Edit', edit_role_path(id: role.id) , class: 'btn btn-sm btn-primary'  %>
+          <%= link_to 'Delete', role_path(id: role.id), class: 'btn btn-sm btn-danger', method:  :delete %>
+        </td>
+      </tr>
+  <% end %>
+  </tbody>
+</table>

@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
 
   attr_accessor :company_name, :subdomain
 
+  belongs_to :role
   belongs_to :company
 
   validates :company_name, presence: true, on: :create, allow_blank: false
@@ -22,6 +23,8 @@ class User < ActiveRecord::Base
       company = Company.new(name: self.company_name, subdomain: self.subdomain)
       if company.save
         self.company_id = company.id
+        role = Role.new(title: 'Admin', company_id: company.id)
+        self.role_id = role.id if role.save
       else
         errors[:base] << 'Company or Subdomain already exists'
         return false
@@ -34,11 +37,10 @@ class User < ActiveRecord::Base
     company.update_attributes(owner_id: self.id)
   end
 
-
   private
 
   def avatar_size_validation
-    errors[:avatar] << 'should be less than 2 MB' if avatar.size > 2.megabytes
+    errors[:avatar] << 'Should be less than 2 MB' if avatar.size > 2.megabytes
   end
 
 end

@@ -14,15 +14,16 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => {registrations: 'registrations', sessions: 'sessions', :invitations => 'invitations'}
 
   constraints(Subdomain) do
-    match '/' => 'home#show', via: :get
+    match '/' => 'home#index', via: :get
   end
-  resources :home, only: [:index] do
+  resources :home, only: [:index, :show] do
     get 'edit', on: :collection
   end
   resources :incomes
   resources :expenses
   resources :income_categories
   resources :expense_categories
+  resources :roles
   resources :transactions, only: [:index]
 
   root 'welcome#index'

@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   include Pundit
   protect_from_forgery with: :exception
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   def after_sign_in_path_for(resource)
     # if request.subdomain == current_user.company.subdomain
@@ -20,6 +21,11 @@ class ApplicationController < ActionController::Base
 
   def company
     current_user.company
+    end
+
+  def current_role
+    current_user.role
   end
+
 
 end
