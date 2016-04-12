@@ -1,14 +1,17 @@
 class User < ActiveRecord::Base
+
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :lockable, :timeoutable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
-  mount_uploader :avatar, AvatarUploader
 
-  attr_accessor :company_name, :subdomain
+  mount_uploader :avatar, AvatarUploader
 
   belongs_to :role
   belongs_to :company
+
+  attr_accessor :company_name, :subdomain, :company_attributes
+
 
   validates :company_name, presence: true, on: :create, allow_blank: false
   validates :subdomain, presence: true, on: :create, allow_blank: false

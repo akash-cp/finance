@@ -3,9 +3,9 @@
 
 <div class="row">
   <div class="col-xs-6">
-    <h3><b>Name: </b><%= @user.name%></h3><br>
-    <h3><b>Email: </b><%= @user.email%></h3><br>
-    <h3><b>Permissions: </b><%= @user.role.title %></h3><br>
+    <h4><b>Name: </b><%= @user.name%></h4>
+    <h4><b>Email: </b><%= @user.email%></h4>
+    <h4><b>Permission: </b><%= @user.role.title %></h4><br>
 
   </div>
   <div class="col-xs-6">
@@ -83,6 +83,5 @@
     </tbody>
   </table>
   <br>
-  <%= link_to 'Edit', edit_role_path(id: @user.role.id),class: 'btn btn-sm btn-primary' %>
-  <%= link_to 'Back', roles_path, class: 'btn btn-sm btn-primary' %>
+  <%= link_to 'Back', home_index_path, class: 'btn btn-sm btn-primary' %>
 </div><br>

@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :income_categories
   resources :expense_categories
   resources :roles
+  resources :companies
   resources :transactions, only: [:index]
 
   root 'welcome#index'

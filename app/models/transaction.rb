@@ -2,6 +2,7 @@ class Transaction < ActiveRecord::Base
   include Filterable
 
   TYPE = %w(All Income Expense)
+
   EXPORT_TYPE = %w(Pdf Excel)
 
   belongs_to :company

@@ -1,9 +1,11 @@
 <h1 class="center">Income Categories</h1>
 <div class="beautiful_line"></div>
+
+<% if policy(:income_category).new? %>
 <div class="center">
   <%= link_to 'New Income Category', new_income_category_path , class: 'btn btn-lg btn-success', remote: true %>
 </div>
-
+<% end %>
 <br><br>
 
 <table id="income_categories" class="table">

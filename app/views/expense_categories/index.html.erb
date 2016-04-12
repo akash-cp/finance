@@ -1,11 +1,12 @@
 <h1 class="center">Expense Categories</h1>
 <div class="beautiful_line"></div>
 
-<div class="center">
-  <%= link_to 'New Expense Category', new_expense_category_path , class: 'btn btn-lg btn-success', remote: true %>
-</div>
-
-<br><br>
+<% if policy(:expense_category).new? %>
+    <div class="center">
+      <%= link_to 'New Expense Category', new_expense_category_path , class: 'btn btn-lg btn-success', remote: true %>
+    </div>
+<% end %>
+<br>
 
 <table id="expense_categories"  class="table">
   <thead>

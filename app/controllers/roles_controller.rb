@@ -2,15 +2,18 @@ class RolesController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    authorize Role
     @roles = Role.all
   end
 
   def new
+    authorize Role
     @role = Role.new
   end
 
 
   def create
+    authorize Role
     @role = Role.new(role_params)
     if @role.save
       redirect_to roles_path
@@ -21,10 +24,12 @@ class RolesController < ApplicationController
   end
 
   def edit
+    authorize Role
     @role = Role.find_by(id: params[:id])
   end
 
   def update
+    authorize Role
     @role = Role.find_by(id: params[:id])
     if @role.update_attributes(role_params)
       redirect_to roles_path
@@ -34,6 +39,7 @@ class RolesController < ApplicationController
   end
 
   def destroy
+    authorize Role
     @role = Role.find_by(id: params[:id])
     if @role.destroy
       redirect_to roles_path
@@ -49,4 +55,10 @@ class RolesController < ApplicationController
                                  :can_view_user, :can_invite_user, :can_edit_user, :can_delete_user,
                                  :can_view_role, :can_create_role, :can_edit_role, :can_delete_role)
   end
+
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to root_path
+  end
+
 end

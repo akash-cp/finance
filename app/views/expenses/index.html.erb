@@ -27,12 +27,12 @@
 </div>
 
 <br>
-
+<% if policy(:expense).new? %>
     <div class="center">
       <%= link_to 'New Expense', new_expense_path , class: 'btn btn-lg btn-success', remote: true  %>
     </div>
     <br>
-
+<% end %>
 
 
 <table id="expenses" class="table">

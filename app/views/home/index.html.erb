@@ -1,67 +1,88 @@
- <h1 align="center">Profile</h1>
- <div class="beautiful_line"></div>
-  <div class="row">
+<h1 align="center">Profile</h1>
+<div class="beautiful_line"></div>
+<div class="row">
 
-    <div class="col-xs-9">
-      <h3>Personal</h3>
-      <hr class="hr">
-      <table>
-        <tr>
-          <td><b>Name: </b></td>
-          <td><%= current_user.name %></td>
-        </tr>
-        <tr>
-          <td><b>Email: </b></td>
-          <td><%= current_user.email %></td>
-        </tr>
-      </table>
-      <br>
-      <h3>Company</h3>
-      <hr class="hr">
-      <table>
-        <tr>
-          <td><b>Company Name: </b></td>
-          <td><%= current_user.company.name %></td>
-        </tr>
-        <tr>
-          <td><b>Subdomain: </b></td>
-          <td><%= current_user.company.subdomain %></td>
-        </tr>
-      </table>
-      <br>
-      <h3>Invitations</h3>
+  <div class="col-xs-9">
+    <h3>Personal</h3>
+    <hr class="hr">
+    <table>
+      <tr>
+        <td class="col-xs-1"><b>Name: </b></td>
+        <td><%= current_user.name %></td>
+      </tr>
+      <tr>
+        <td class="col-xs-1"><b>Email: </b></td>
+        <td><%= current_user.email %></td>
+      </tr>
+    </table>
+    <br>
+    <h3>Company</h3>
+    <hr class="hr">
+    <table>
+      <tr>
+        <td class="col-xs-3"><b>Company Name: </b></td>
+        <td><%= current_user.company.name %></td>
+      </tr>
+      <tr>
+        <td class="col-xs-1"><b>Subdomain: </b></td>
+        <td><%= current_user.company.subdomain %></td>
+      </tr>
+      <tr>
+        <td class="col-xs-1"><b>Phone Numbers: </b></td>
+        <td> <% current_user.company.phone_numbers.each do |num| %>
+            <%= num.number %> &nbsp;
+        <% end %> </td>
+      </tr>
+    </table>
+    <br>
+    <p class="center"><%= link_to 'Edit', edit_company_path(id: current_user.id) , class: 'btn     btn-primary big-button' %></p>
 
-      <table class="table col-xs-12">
-        <tr>
-          <th class="col-xs-2">Name</th>
-          <th class="col-xs-2">Email</th>
-          <th class="col-xs-2">Status</th>
-          <th class="col-xs-2">Role</th>
-          <th class="col-xs-1"></th>
-        </tr>
-        <% @invited_for_company.each do |invited| %>
-            <tr>
-              <td><%= invited.name %></td>
-              <td><%= invited.email %></td>
-              <td><%= invited.invitation_accepted_at.present? ? 'Accepted':invited.id == @user.id ? 'Owner':'Pending' %></td>
-              <td><%= current_user.role.title%></td>
-              <td><%= link_to 'View', home_path(id: invited.id), class: 'btn btn-sm btn-primary' %></td>
-            </tr>
-        <% end %>
-      </table>
+    <hr>
 
-      <p align="right"><%= link_to 'Invite User', new_user_invitation_path, class: 'btn btn-success' %></p>
-      <br>
-    </div>
+    <h3>Invitations</h3>
 
-    <div class="col-xs-3">
-      <h3>Profile Picture</h3>
-      <hr class="hr">
-      <%= image_tag current_user.avatar.url(:thumb) %>
+    <table class="table col-xs-12">
+      <tr>
+        <th class="col-xs-2">Name</th>
+        <th class="col-xs-2">Email</th>
+        <th class="col-xs-2">Status</th>
+        <th class="col-xs-2">Role</th>
+        <th class="col-xs-1"></th>
+      </tr>
+      <% if policy(:user).index? %>
+          <% @invited_for_company.each do |invited| %>
+              <tr>
+                <td><%= invited.name %></td>
+                <td><%= invited.email %></td>
+                <td><%= invited.invited_by_id.nil? ? 'Admin':(invited.invitation_accepted_at.present? ? 'Accepted':'Pending') %></td>
+                <td><%= invited.role.title%></td>
+                <td>
+                  <%= link_to 'View', home_path(id: invited.id), class: 'btn btn-sm btn-primary' %>
+                </td>
+              </tr>
+          <% end %>
 
-    </div>
+      <% else %>
+          <td colspan="5"><i>You are not allowed to view this ...</i></td>
+      <% end %>
+    </table>
+
+
+    <% if policy(:user).new? %>
+        <p align="right"><%= link_to 'Invite User', new_user_invitation_path, class: 'btn btn-success' %></p>
+    <% end %>
+    <br>
+  </div>
+
+  <div class="col-xs-3">
+    <h3>Profile Picture</h3>
+    <hr class="hr">
+    <%= image_tag current_user.avatar.url(:thumb) %>
 
   </div>
+</div>
+
+
 
 
 

@@ -70,4 +70,9 @@ class ExpensesController < ApplicationController
     @expense_category_count = @expense_categories.joins(:expenses).group(:name).count
   end
 
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to root_path
+  end
+
 end

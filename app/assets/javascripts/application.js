@@ -17,6 +17,7 @@
 //= require bootstrap.min
 //= require bootstrap-datepicker
 //= require chartkick
+//= require cocoon
 
 
 $(document).on("page:change", function(){

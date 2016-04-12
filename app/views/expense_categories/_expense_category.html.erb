@@ -3,7 +3,11 @@
   <td><%= expense_category.creater.name %></td>
   <td><%= expense_category.updater.name %></td>
   <td>
-    <%= link_to 'Edit', edit_expense_category_path(id: expense_category.id), class: 'btn btn-sm btn-primary', remote: true  %>
-    <%= link_to 'Delete', expense_category_path(id: expense_category.id), class: 'btn btn-sm btn-danger', method: :delete, remote: true  %>
+    <% if policy(:expense_category).edit? %>
+        <%= link_to 'Edit', edit_expense_category_path(id: expense_category.id), class: 'btn btn-sm btn-primary', remote: true  %>
+    <% end %>
+    <% if policy(:expense_category).destroy? %>
+        <%= link_to 'Delete', expense_category_path(id: expense_category.id), class: 'btn btn-sm btn-danger', method: :delete, remote: true  %>
+    <% end %>
   </td>
 </tr>

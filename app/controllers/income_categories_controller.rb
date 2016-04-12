@@ -41,4 +41,9 @@ class IncomeCategoriesController < ApplicationController
     params.require(:income_category).permit(:name, :company_id, :created_by, :updated_by)
   end
 
+  def user_not_authorized
+    flash[:alert] = 'You are not authorized to perform this action.'
+    redirect_to root_path
+  end
+
 end

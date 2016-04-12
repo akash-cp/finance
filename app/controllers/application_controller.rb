@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
     #   destroy_user_session_url(subdomain: request.subdomain)
     #   root_url(subdomain: nil)
     # end
-   home_index_url(:subdomain => resource.company.subdomain)
+    home_index_url(:subdomain => resource.company.subdomain)
   end
 
   def after_sign_out_path_for(resource)
@@ -21,11 +21,14 @@ class ApplicationController < ActionController::Base
 
   def company
     current_user.company
-    end
+  end
 
   def current_role
     current_user.role
   end
 
+  # def is_admin?
+  #   current_user.id == company.owner_id
+  # end
 
 end

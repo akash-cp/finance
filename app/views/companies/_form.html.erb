@@ -1,0 +1,27 @@
+<div class="form-group col-xs-5">
+
+  <%= form_for current_user.company do |f| %>
+
+      <div id="expense_errors"></div>
+
+      <%= f.label :name, class: 'control-label '%>
+      <%= f.text_field :name, autofocus: true, class:'form-control'%>
+
+      <div id="phone_numbers">
+        <%= f.fields_for :phone_numbers do |builder| %>
+            <%= render 'phone_number_fields', f: builder%>
+        <% end %>
+        <div class="links">
+            <%= link_to_add_association 'add phone number', f, :phone_numbers %>
+        </div>
+      </div>
+
+
+      <div class="row col-xs-offset-0">
+        <%= f.submit 'Submit', class: 'btn btn-success' %>
+      </div>
+
+  <% end %>
+</div>
+<br>
+

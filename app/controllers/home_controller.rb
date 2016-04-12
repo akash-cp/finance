@@ -3,7 +3,6 @@ class HomeController < ApplicationController
   before_action :set_user
 
   def index
-    current_user
     @invited_for_company = User.where(company_id: @user.company_id)
   end
 

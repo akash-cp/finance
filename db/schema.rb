@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160411055344) do
+ActiveRecord::Schema.define(version: 20160412071201) do
 
   create_table "companies", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -76,6 +76,15 @@ ActiveRecord::Schema.define(version: 20160411055344) do
 
   add_index "incomes", ["company_id"], name: "index_incomes_on_company_id", using: :btree
   add_index "incomes", ["income_category_id"], name: "index_incomes_on_income_category_id", using: :btree
+
+  create_table "phone_numbers", force: :cascade do |t|
+    t.string   "number",     limit: 255
+    t.integer  "company_id", limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "phone_numbers", ["company_id"], name: "index_phone_numbers_on_company_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "title",                       limit: 255, default: "",   null: false
@@ -168,6 +177,7 @@ ActiveRecord::Schema.define(version: 20160411055344) do
   add_foreign_key "income_categories", "companies"
   add_foreign_key "incomes", "companies"
   add_foreign_key "incomes", "income_categories"
+  add_foreign_key "phone_numbers", "companies"
   add_foreign_key "roles", "companies"
   add_foreign_key "transactions", "companies"
   add_foreign_key "users", "companies"

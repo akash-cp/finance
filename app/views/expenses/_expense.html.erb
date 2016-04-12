@@ -6,7 +6,11 @@
   <td><%= expense.updater.name %></td>
   <td><%= link_to_if !expense.attachment.blank?, 'Download', expense.attachment.url, target: '_blank' %></td>
   <td>
-    <%= link_to 'Edit', edit_expense_path(id: expense.id), class: 'btn btn-sm btn-primary', remote: true %>
-    <%= link_to 'Delete', expense_path(id: expense.id), class: 'btn btn-sm btn-danger', method:  :delete, remote: true %>
+    <% if policy(:expense).edit? %>
+        <%= link_to 'Edit', edit_expense_path(id: expense.id), class: 'btn btn-sm btn-primary', remote: true %>
+    <% end %>
+    <% if policy(:expense).destroy? %>
+        <%= link_to 'Delete', expense_path(id: expense.id), class: 'btn btn-sm btn-danger', method:  :delete, remote: true %>
+    <% end %>
   </td>
 </tr>
