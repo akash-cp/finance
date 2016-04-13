@@ -9,9 +9,13 @@ class Subdomain
   end
 end
 
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
 
-  devise_for :users, :controllers => {registrations: 'registrations', sessions: 'sessions', :invitations => 'invitations'}
+  devise_for :users, :controllers => {registrations: 'registrations',
+                                      sessions: 'sessions',
+                                      invitations: 'invitations'}
 
   constraints(Subdomain) do
     match '/' => 'home#index', via: :get
@@ -26,6 +30,8 @@ Rails.application.routes.draw do
   resources :roles
   resources :companies
   resources :transactions, only: [:index]
+
+  mount Sidekiq::Web, at: '/sidekiq'
 
   root 'welcome#index'
 

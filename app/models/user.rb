@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
 
   attr_accessor :company_name, :subdomain, :company_attributes
 
-
   validates :company_name, presence: true, on: :create, allow_blank: false
   validates :subdomain, presence: true, on: :create, allow_blank: false
   validates :email, presence: true, uniqueness: {scope: :company_id}, on: :create, allow_blank: false
@@ -44,6 +43,10 @@ class User < ActiveRecord::Base
 
   def avatar_size_validation
     errors[:avatar] << 'Should be less than 2 MB' if avatar.size > 2.megabytes
+  end
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 
 end

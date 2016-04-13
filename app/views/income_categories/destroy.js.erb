@@ -1,1 +1,7 @@
+<% if @income_category.errors.any? %>
+$("#income_category_errors").html("<%= escape_javascript(render 'error') %>").show();
+
+<% else %>
 $("tr[data-id='<%=@income_category.id%>']").remove();
+
+<% end %>

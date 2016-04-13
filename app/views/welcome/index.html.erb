@@ -3,7 +3,7 @@
   <%= form_tag('/', method: 'get') do %>
       <%= label_tag(:q, 'Name:') %>
       <%= text_field_tag(:q) %> <br><br>
-      <%= submit_tag('Submit', class: 'btn btn-success') %>
+      <%= submit_tag('Submit', class: 'btn btn-success', data: {disable_with: 'Submitting...'}) %>
   <% end %>
   <br>
 </div>

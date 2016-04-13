@@ -22,6 +22,9 @@ gem 'font-awesome-rails'
 gem 'chartkick', '~> 1.2.4'
 gem 'pundit'
 gem 'cocoon'
+gem 'sidekiq', '3.2.5'
+gem 'sinatra', :require => nil
+gem 'traceroute'
 #gem 'rack-mini-profiler'
 gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
@@ -32,4 +35,5 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
+  gem 'bullet'
 end

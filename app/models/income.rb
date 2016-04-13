@@ -13,7 +13,7 @@ class Income < ActiveRecord::Base
   validates_presence_of :date
   validates_presence_of :income_category_id
 
-  before_create :create_transaction
+  after_create :create_transaction
 
   scope :for_start_date, ->(start_date) { where('date >= ?', Date.parse(start_date)) }
   scope :for_end_date, ->(end_date) { where('date <= ?', Date.parse(end_date)) }
@@ -22,7 +22,7 @@ class Income < ActiveRecord::Base
 
   private
   def create_transaction
-    self.build_feed(company_id: self.company_id, created_by: self.created_by, date: self.date)
+    CreateFeedJob.new(self.id).enqueue(wait: 5.seconds)
   end
 
 end
