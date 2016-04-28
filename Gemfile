@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 gem 'rails', '4.2.4'
-gem 'mysql2', '~> 0.3.18'
+# gem 'mysql2', '~> 0.3.18'
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
@@ -9,7 +9,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'devise'
 gem 'slim'
-gem 'carrierwave'
+gem 'carrierwave-mongoid', :require => 'carrierwave/mongoid'
+gem 'mongoid-grid_fs', github: 'ahoward/mongoid-grid_fs'
 gem 'bootstrap-material-design', '~> 0.2.2'
 gem 'hirb'
 gem 'devise_invitable', '~> 1.5.2'
@@ -26,6 +27,9 @@ gem 'sidekiq', '3.2.5'
 gem 'sinatra', :require => nil
 gem 'traceroute'
 #gem 'rack-mini-profiler'
+#mongo-db
+gem 'mongoid', '~> 4.0.2'#, github: 'mongoid/mongoid'
+gem 'bson_ext'
 gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'byebug'
