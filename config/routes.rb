@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   resources :roles
   resources :companies
   resources :transactions, only: [:index]
+  mount Blorgh::Engine, at: '/blog'
 
   mount Sidekiq::Web, at: '/sidekiq'
 

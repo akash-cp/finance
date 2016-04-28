@@ -1,3 +1,8 @@
+PATH
+  remote: ../blorgh
+  specs:
+    blorgh (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -258,6 +263,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  blorgh (= 0.0.1)!
   bootstrap-material-design (~> 0.2.2)
   brakeman
   bullet

@@ -25,6 +25,7 @@ gem 'cocoon'
 gem 'sidekiq', '3.2.5'
 gem 'sinatra', :require => nil
 gem 'traceroute'
+gem 'blorgh','0.0.1', path: '../blorgh'
 #gem 'rack-mini-profiler'
 gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
