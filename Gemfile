@@ -25,8 +25,13 @@ gem 'cocoon'
 gem 'sidekiq', '3.2.5'
 gem 'sinatra', :require => nil
 gem 'traceroute'
-gem 'blorgh','0.0.1', path: '../blorgh'
-#gem 'rack-mini-profiler'
+gem 'active_model_serializers', '~> 0.10.0'
+#Rack Middleware for handling Cross-Origin Resource Sharing (CORS), which makes cross-origin AJAX possible.
+gem 'rack-cors','0.4.0', require: 'rack/cors'
+# json web token gem  to decode, verify and generate JWT
+gem 'jwt','1.5.1'
+# gem 'blorgh','0.0.1', path: '../blorgh'
+# gem 'rack-mini-profiler'
 gem 'sdoc', '~> 0.4.0', group: :doc
 group :development, :test do
   gem 'byebug'
