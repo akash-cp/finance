@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   resources :transactions, only: [:index]
   namespace :api do
     namespace :v1 do
+      post 'auth_user' => 'authentications#authenticate_user'
       resources :users
     end
   end
