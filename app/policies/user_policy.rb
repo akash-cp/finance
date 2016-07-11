@@ -5,7 +5,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def show?
-
+    false
   end
 
   def new?

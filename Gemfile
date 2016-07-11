@@ -32,7 +32,7 @@ gem 'rack-cors','0.4.0', require: 'rack/cors'
 # json web token gem  to decode, verify and generate JWT
 gem 'jwt','1.5.1'
 
-
+gem 'byebug'
 # gem 'blorgh','0.0.1', path: '../blorgh'
 # gem 'rack-mini-profiler'
 gem 'sdoc', '~> 0.4.0', group: :doc
@@ -42,6 +42,7 @@ group :development, :test do
   gem 'brakeman', :require => false
 end
 group :development do
+  gem 'byebug'
   gem 'web-console', '~> 2.0'
   gem 'spring'
   gem 'bullet'

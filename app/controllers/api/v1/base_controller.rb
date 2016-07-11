@@ -1,7 +1,6 @@
 class Api::V1::BaseController < ApplicationController
-  protect_from_forgery with: :null_session
 
-  before_action :destroy_session
+  # include Pundit
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -9,8 +8,15 @@ class Api::V1::BaseController < ApplicationController
   before_action :destroy_session
 
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from Pundit::NotAuthorizedError, with: :not_authorized
 
   protected
+
+  def not_authorized
+    hash = {}
+    hash[:error] = 'Not authorized'
+    render json: hash
+  end
 
   def not_found
     return api_error(status: 404, errors: 'Not found')
@@ -30,7 +36,7 @@ class Api::V1::BaseController < ApplicationController
       render json: { errors: ['Not Authenticated'] }, status: :unauthorized
       return
     end
-    @current_user = User.find(auth_token[:user_id])
+    @current_user = User.find(auth_token[:data][:user_id])
   rescue JWT::VerificationError, JWT::DecodeError
     render json: { errors: ['Not Authenticated'] }, status: :unauthorized
   end
