@@ -11,3 +11,21 @@ task :hello_world_r => :environment do
     output = `Rscript --vanilla #{filepath} 'Akash Gupta'`
 	puts output
 end
+
+task :run_r => :environment do
+  puts 'running R!'
+
+  filepath = Rails.root.join('lib', 'external_scripts', 'string_detection.R')
+
+  greetings = [
+    'ARRRGH ME MATEYS',
+    'Why hello, old chap!',
+    'Hollaaaa!',
+    'Hello, is it me you\'re looking for?',
+    'Avast! Ye ARRRE so smart.',
+    'Shiver me timbers this is a gRRReat tutorial!'
+  ]
+
+  output = `Rscript --vanilla #{filepath} #{greetings}`
+  puts "Here's the output:\n #{output}"
+end
