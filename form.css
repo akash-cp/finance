@@ -1,0 +1,219 @@
+.enquiry-container {
+    max-width: 400px;
+    width: 100%;
+    margin: 0 auto;
+    margin-top: -30px;
+    position: relative;
+}
+
+
+#contact {
+    background: #fff;
+    padding: 16px;
+    margin: 100px 0;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    border-radius: 3px;
+}
+
+#contact textarea {
+    height: 100px;
+    max-width: 100%;
+    resize: none;
+}
+
+span.male,
+span.female {
+    font-size: 14px;
+    margin-left: 2px;
+    margin-right: 1em;
+    font-weight: normal;
+}
+
+
+#classpro-icon {
+    height: 18px;
+    float: right;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-left: -76px;
+}
+
+
+#classpro-icon-div {
+    margin-bottom: 10px;
+}
+
+#classpro-enquiry-btn {
+    display: none;
+    background-color: #428bca;
+    cursor: pointer;
+    transform: rotate(-90deg);
+    z-index: 999999;
+    text-align: center;
+    width: 140px;
+    position: fixed;
+    right: -59px;
+    height: 40px;
+    padding-top: 5px;
+    border-radius: 3px;
+}
+
+#classpro-enquiry-btn a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.enquiry-placed {
+    text-align: center;
+}
+
+.enquiry-message {
+    margin: 20px 0 20px -18px;
+}
+
+.classpro-enquiry-ok-button {
+    margin: 0 0 20px 0;
+}
+
+
+/* Modal CSS */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 9999; /* Sit on top */
+    padding-top: 10px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+
+#mobile-classpro-enquiry-btn {
+    display: none;
+    background-color: #2196F3;
+    width: 60px;
+    height: 60px;
+    border-radius: 100%;
+    /*background: #F44336;*/
+    border: none;
+    outline: none;
+    color: #FFF;
+    font-size: 36px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    transition: .3s;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+
+.fa-comments-o {
+    font-size: 32px;
+    margin-bottom: 13px;
+}
+
+.classpro-enquiry-cancel-button {
+    margin-left: 12px;
+}
+
+/*BOOTSTRAP CSS*/
+
+.classpro-web-enquiry-plugin textarea {
+    overflow: auto;
+}
+
+.classpro-web-enquiry-plugin label {
+    display: inline-block;
+    max-width: 100%;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.classpro-web-enquiry-plugin .cp-form-control {
+    display: block;
+    width: 100%;
+    /*height: 34px;*/
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555555;
+    background-color: #ffffff;
+    background-image: none;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+.classpro-web-enquiry-plugin .form-control:focus {
+    border-color: #66afe9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.classpro-web-enquiry-plugin .form-control::-moz-placeholder {
+    color: #999999;
+    opacity: 1;
+}
+
+.classpro-web-enquiry-plugin .form-control:-ms-input-placeholder {
+    color: #999999;
+}
+
+.classpro-web-enquiry-plugin .form-control::-webkit-input-placeholder {
+    color: #999999;
+}
+
+.classpro-web-enquiry-plugin .form-group {
+    margin-bottom: 15px;
+}
+
+.classpro-web-enquiry-plugin .btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.classpro-web-enquiry-plugin .btn-default {
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+}
+
+.classpro-web-enquiry-plugin .cp-btn-success{
+    color: white;
+    background-color: #5cb85c;
+}
